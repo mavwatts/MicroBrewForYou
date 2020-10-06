@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'microbrewforyou_app'
+    'microbrewforyou_app',
     'crispy_forms',
 ]
 
@@ -120,5 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = "microbrewforyou_app.CustomUser"
 
 CRISPY_TEMPLATE_PACK = 'uni_form'

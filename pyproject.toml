@@ -8,6 +8,7 @@ authors = ["Mavrick Watts, Mike Boring, Iris Hoffmeyer, Ally Engle"]
 python = "^3.8"
 django = "^3.1.2"
 django-crispy-forms = "^1.9.2"
+Pillow = "^7.2.0"
 
 [tool.poetry.dev-dependencies]
 
