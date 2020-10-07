@@ -20,7 +20,8 @@ def login_view(request):
                 "username"), password=data.get("password"))
             if user:
                 login(request, user)
-                return HttpResponseRedirect(request.GET.get('next', reverse("homepage")))
+                return HttpResponseRedirect(request.GET.get(
+                    'next', reverse("homepage")))
     form = LoginForm()
     return render(request, "generic_form.html", {"form": form})
 
@@ -81,3 +82,16 @@ def post_detail_view(request, post_id):
         request, "post_detail.html",
         {"post": my_post}
     )
+
+
+class UserDetailView(View):
+    def get(self, request, user_id):
+        selected_user = CustomUser.objects.filter(id=user_id).first()
+        user_posts = Posts.objects.filter(
+            author=user_id).order_by('postTime').reverse()
+        number_posts = len(user_posts)
+        return render(
+            request, "user_detail.html",
+            {"number_posts": number_posts,
+             "selected_user": selected_user,
+             "user_posts": user_posts})
