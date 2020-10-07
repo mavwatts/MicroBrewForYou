@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block content %}
+<br />
+{% include "menu.html" %}
+<br />
+{% if request.user.is_authenticated %}
+<h2>Welcome {{ request.user.first_name }}, you are currently logged in.</h2>
+{% else %}
+<h2>
+  Welcome, please <a href="/login/">login</a> or <a href="/signup/">signup.</a>
+</h2>
+{% endif %} {% endblock %}
