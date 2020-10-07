@@ -1,12 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 <br />
-<div align="right">
-  <a href="/login/" class="btn btn-primary">Login</a>&nbsp;<a
-    href="/logout/"
-    class="btn btn-primary"
-    >Logout</a
-  >&nbsp;<a href="/signup/" class="btn btn-primary">Signup</a>
-</div>
+{% include "menu.html" %}
+<br />
 {% if request.user.is_authenticated %}
 <h2>Welcome {{ request.user.first_name }}, you are currently logged in.</h2>
 {% else %}

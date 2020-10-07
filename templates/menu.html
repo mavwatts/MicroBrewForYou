@@ -1,0 +1,17 @@
+<div align="right">
+  <a href="/" class="btn btn-primary">Home</a>&nbsp;
+  <a href="/login/" class="btn btn-primary">Login</a>
+  {% if request.user.is_authenticated %} &nbsp;<a
+    href="/logout/"
+    class="btn btn-primary"
+    >Logout</a
+  >{% endif %} {% if not request.user.is_authenticated %}&nbsp;<a
+    href="/signup/"
+    class="btn btn-primary"
+    >Signup</a
+  >{% endif %}{% if request.user.is_authenticated %}&nbsp;<a
+    href="/addpost/"
+    class="btn btn-primary"
+    >Add Post</a
+  >{% endif %}
+</div>

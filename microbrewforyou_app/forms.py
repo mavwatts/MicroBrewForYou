@@ -23,3 +23,7 @@ class SignupForm(forms.Form):
     )
     city = forms.ChoiceField(choices=city_choices)
     state = forms.ChoiceField(choices=state_choices)
+
+
+class PostForm(forms.Form):
+    body = forms.CharField(widget=forms.Textarea)
