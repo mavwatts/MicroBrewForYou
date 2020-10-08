@@ -3,8 +3,38 @@ from django.contrib.auth import login, logout, authenticate
 from django.views.generic.base import View
 from microbrewforyou_app.models import CustomUser, Posts, BrewTypes
 from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm
-# Create your views here.
 
+# # importing the requests library 
+# import requests 
+
+# # api-endpoint 
+# URL = "https://api.openbrewerydb.org/breweries"
+
+# # location given here 
+# location = "delhi technological university"
+
+# # defining a params dict for the parameters to be sent to the API 
+# PARAMS = {'address':location} 
+
+# # sending get request and saving the response as response object 
+# r = requests.get(url=URL, params=PARAMS) 
+
+# # extracting data in json format 
+# data = r.json() 
+
+
+# # extracting latitude, longitude and formatted address 
+# # of the first matching location 
+# latitude = data['results'][0]['geometry']['location']['lat'] 
+# longitude = data['results'][0]['geometry']['location']['lng'] 
+# formatted_address = data['results'][0]['formatted_address'] 
+
+# # printing the output 
+# print("Latitude:%s\nLongitude:%s\nFormatted Address:%s"
+# 	%(latitude, longitude,formatted_address)) 
+
+
+# Create your views here.
 class IndexView(View):
     def get(self, request):
         if request.user.is_anonymous:
@@ -127,3 +157,4 @@ class FavoriteBrewTypesView(View):
         logged_in_user.fav_brewtypes.add(brewtypename)
         logged_in_user.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
