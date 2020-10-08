@@ -3,8 +3,27 @@
 {% include "menu.html" %}
 <br />
 {% if request.user.is_authenticated %}
-<h2>Welcome {{ request.user.first_name }}, you are currently logged in.</h2>
-{% else %}
+<h1>User Profile</h1>
+{{request.user}} {% if request.user != user %}
+<a href="/following/{{request.user.id}}/"><p>Follow</p></a>
+<a href="/unfollowing/{{request.user.id}}/"><p>Unfollow</p></a>
+{% endif %}
+
+
+<h1>Following Count: {{follow_count}}</h1>
+
+<h1>Favorite Breweries: {{follow_count}}</h1>
+
+<h1>Favorite Brew Types: {{follow_count}}</h1>
+
+<h1>Suggested Friends: {{follow_count}}</h1>
+
+<h1>Friends Post: {{follow_count}}</h1>
+
+<h1>Nearby Breweries: {{follow_count}}</h1>
+
+
+{% elif request.user.is_anonymous %}
 <h2>
   Welcome, please <a href="/login/">login</a> or <a href="/signup/">signup.</a>
 </h2>

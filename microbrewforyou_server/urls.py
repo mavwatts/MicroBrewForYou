@@ -15,16 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-from microbrewforyou_app.views import index, login_view, logout_view, signup_view, AddPostView, post_detail_view
+from microbrewforyou_app.views import login_view, logout_view, signup_view, AddPostView, post_detail_view, FollowingView, IndexView
 
 
 urlpatterns = [
-    path('', index, name="homepage"),
+    path('', IndexView.as_view(), name="homepage"),
     path('post/<int:post_id>/', post_detail_view, name="postview"),
     path('addpost/', AddPostView.as_view(), name="addpostview"),
     path('login/', login_view, name="loginview"),
     path('signup/', signup_view, name="signupview"),
     path('logout/', logout_view, name="logoutview"),
+    # path('following/<int:follow_id>/', FollowingView.as_view(), name="following"),
+    # path('unfollowing/<int:unfollow_id>/', UnfollowingView.as_view(), name="unfollowing"),
     path('admin/', admin.site.urls),
 ]
