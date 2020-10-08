@@ -5,14 +5,15 @@ from microbrewforyou_app.models import CustomUser, Posts, BrewTypes
 from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm
 # Create your views here.
 
-class IndexView(View):
+
+class IndexView(View):  # homepage/profile view
     def get(self, request):
         if request.user.is_anonymous:
             follow_count = 0
         else:
-            follow_count = len(request.user.users_following.all())        
+            follow_count = len(request.user.users_following.all())
         return render(request, 'index.html', {'follow_count': follow_count})
-            
+
 
 def login_view(request):
     if request.method == "POST":
@@ -85,7 +86,8 @@ def post_detail_view(request, post_id):
         request, "post_detail.html",
         {"post": my_post}
     )
-    
+
+
 class FollowingView(View):
     def get(self, request, follow_id):
         add_user = CustomUser.objects.filter(id=follow_id).first()
@@ -93,12 +95,14 @@ class FollowingView(View):
         request.user.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
+
 class UnfollowingView(View):
     def get(self, request, unfollow_id):
-         remove_user = CustomUser.objects.filter(id=unfollow_id).first()
-         logged_in_user.following.remove(remove_user)
-         logged_in_user.save()
-         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        remove_user = CustomUser.objects.filter(id=unfollow_id).first()
+        logged_in_user.following.remove(remove_user)
+        logged_in_user.save()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
 
 class UserDetailView(View):
     def get(self, request, user_id):
@@ -107,7 +111,7 @@ class UserDetailView(View):
             author=user_id).order_by('postTime').reverse()
         number_posts = len(user_posts)
         return render(
-            request, "user_detail.html", 
+            request, "user_detail.html",
             {"number_posts": number_posts,
              "selected_user": selected_user,
              "user_posts": user_posts})
@@ -122,7 +126,7 @@ class UserDetailView(View):
 
 class FavoriteBrewTypesView(View):
     def get(self, request, favorite_id):
-        brewtypename = BrewTypes.objects.get(id = favorite_id)
+        brewtypename = BrewTypes.objects.get(id=favorite_id)
         logged_in_user = request.user
         logged_in_user.fav_brewtypes.add(brewtypename)
         logged_in_user.save()
