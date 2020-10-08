@@ -14,7 +14,9 @@
 
 <h1>Favorite Breweries: {{follow_count}}</h1>
 
-<h1>Favorite Brew Types: {{follow_count}}</h1>
+{% for fav in request.user.fav_brewtypes.all %}
+<h1>Favorite Brew Types: {{fav.name}}</h1>
+{% endfor %}
 
 <h1>Suggested Friends: {{follow_count}}</h1>
 

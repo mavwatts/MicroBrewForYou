@@ -10,10 +10,10 @@ class CustomUser(AbstractUser):
         upload_to='CustomUser/', null=False, blank=False)
     users_following = models.ManyToManyField(
         "self", symmetrical=False, related_name='CustomUser')
-    fav_breweries = models.ForeignKey(
-        "Breweries", on_delete=models.CASCADE, related_name='fav_breweries', null=True, blank=True)
-    fav_brewtypes = models.ForeignKey(
-        "BrewTypes", on_delete=models.CASCADE, related_name='fav_brewtypes', null=True, blank=True)
+    fav_breweries = models.ManyToManyField(
+        "Breweries", symmetrical=False, related_name='fav_breweries', null=True, blank=True)
+    fav_brewtypes = models.ManyToManyField(
+        "BrewTypes", symmetrical=False, related_name='fav_brewtypes', null=True, blank=True)
     address = models.CharField(max_length=280)
     city_choices = (
         ('Columbus', 'Columbus'),
