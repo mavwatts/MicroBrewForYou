@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.views.generic.base import View
-from microbrewforyou_app.models import CustomUser, Posts
+from microbrewforyou_app.models import CustomUser, Posts, BrewTypes
 from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm
 # Create your views here.
 
@@ -107,7 +107,23 @@ class UserDetailView(View):
             author=user_id).order_by('postTime').reverse()
         number_posts = len(user_posts)
         return render(
-            request, "user_detail.html",
+            request, "user_detail.html", 
             {"number_posts": number_posts,
              "selected_user": selected_user,
              "user_posts": user_posts})
+
+# class FavoriteBreweriesView(View):
+    # def get(self, request, follow_id):
+    #     add_user = CustomUser.objects.filter(id=follow_id).first()
+    #     request.user.following.add(add_user)
+    #     request.user.save()
+    #     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+class FavoriteBrewTypesView(View):
+    def get(self, request, favorite_id):
+        brewtypename = BrewTypes.objects.get(id = favorite_id)
+        logged_in_user = request.user
+        logged_in_user.fav_brewtypes.add(brewtypename)
+        logged_in_user.save()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
