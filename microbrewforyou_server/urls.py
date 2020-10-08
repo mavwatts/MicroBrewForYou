@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from microbrewforyou_app.views import login_view, logout_view, signup_view, AddPostView, post_detail_view, FollowingView, IndexView
+from microbrewforyou_app.views import login_view, logout_view, signup_view, AddPostView, post_detail_view, FollowingView, IndexView, UserDetailView
 
 
 urlpatterns = [
     path('', IndexView.as_view(), name="homepage"),
     path('post/<int:post_id>/', post_detail_view, name="postview"),
     path('addpost/', AddPostView.as_view(), name="addpostview"),
+    path('user/<int:user_id>/', UserDetailView.as_view(), name="userview"),
     path('login/', login_view, name="loginview"),
     path('signup/', signup_view, name="signupview"),
     path('logout/', logout_view, name="logoutview"),

@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block content %}
+<br />
+{% include "menu.html" %}
+<br />
+<h2>Name: {{ selected_user.first_name }}</h2>
+<h2>Bio: {{ selected_user.bio }}</h2>
+<h2>City: {{ selected_user.city }}</h2>
+<h2>Following Users: 0</h2>
+<h2>Following Breweries: 0</h2>
+<h2>Favorite Brew Types: 0</h2>
+<br />
+<h2>{{ selected_user }}'s Posts</h2>
+{% for post in user_posts %}
+<h3>
+  <span class="small"
+    ><a href="/user/{{ post.author.id }}/">{{ post.author }}</a> -
+    <a href="/post/{{ post.id }}/">{{post.postTime}}</a></span
+  ><span class="small"
+    > - Updated: {{ post.lastUpdated }}</a></span><br />
+  {{ post.body }}
+</h3>
+{% endfor %}
+<br />
+{% endblock %}

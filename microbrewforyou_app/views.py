@@ -23,7 +23,8 @@ def login_view(request):
                 "username"), password=data.get("password"))
             if user:
                 login(request, user)
-                return HttpResponseRedirect(request.GET.get('next', reverse("homepage")))
+                return HttpResponseRedirect(request.GET.get(
+                    'next', reverse("homepage")))
     form = LoginForm()
     return render(request, "generic_form.html", {"form": form})
 
@@ -98,3 +99,15 @@ class UnfollowingView(View):
          logged_in_user.following.remove(remove_user)
          logged_in_user.save()
          return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+class UserDetailView(View):
+    def get(self, request, user_id):
+        selected_user = CustomUser.objects.filter(id=user_id).first()
+        user_posts = Posts.objects.filter(
+            author=user_id).order_by('postTime').reverse()
+        number_posts = len(user_posts)
+        return render(
+            request, "user_detail.html",
+            {"number_posts": number_posts,
+             "selected_user": selected_user,
+             "user_posts": user_posts})
