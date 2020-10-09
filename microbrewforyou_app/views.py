@@ -4,23 +4,8 @@ from django.views.generic.base import View
 from microbrewforyou_app.models import CustomUser, Posts, BrewTypes
 from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm
 
-<<<<<<< HEAD
 
 class IndexView(View):  # homepage/profile view
-=======
-# importing the requests library 
-# import requests 
-
-
-# class SearchView(View):
-#     def get(self, request):
-#         for breweries in requests.get(url='https://api.openbrewerydb.org/breweries').json():
-#             print(breweries['street'])
-
-
-# Create your views here.
-class IndexView(View):
->>>>>>> Fav-Breweries-and-BrewTypes
     def get(self, request):
         if request.user.is_anonymous:
             follow_count = 0
@@ -164,9 +149,4 @@ class FavoriteBrewTypesView(View):
         logged_in_user = request.user
         logged_in_user.fav_brewtypes.add(brewtypename)
         logged_in_user.save()
-<<<<<<< HEAD
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-=======
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
->>>>>>> Fav-Breweries-and-BrewTypes
