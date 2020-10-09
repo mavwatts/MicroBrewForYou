@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from microbrewforyou_app.views import login_view, logout_view,\
     signup_view, AddPostView, post_detail_view, IndexView,\
-    UserDetailView, FavoriteBrewTypesView, edit_post_view
+    UserDetailView, FavoriteBrewTypesView, edit_post_view,\
+    edit_user_view
 
 
 urlpatterns = [
@@ -26,6 +27,7 @@ urlpatterns = [
     path('editpost/<int:post_id>/', edit_post_view, name="edit_postview"),
     path('addpost/', AddPostView.as_view(), name="addpostview"),
     path('user/<int:user_id>/', UserDetailView.as_view(), name="userview"),
+    path('edituser/<int:user_id>/', edit_user_view, name="edit_userview"),
     path('login/', login_view, name="loginview"),
     path('signup/', signup_view, name="signupview"),
     path('logout/', logout_view, name="logoutview"),

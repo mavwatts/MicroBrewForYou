@@ -3,27 +3,35 @@
 {% include "menu.html" %}
 <br />
 {% if request.user.is_authenticated %}
-<h1>User Profile</h1>
-{{request.user}} {% if request.user != user %}
+<h1>
+  {{request.user}}'s Profile
+  <a href="/edituser/{{ request.user.id }}" class="btn btn-primary"
+    >Edit User Info</a
+  >
+</h1>
+
+<h2>Name: {{request.user.first_name}}</h2>
+<h2>City: {{request.user.city}}</h2>
+<h2>State: {{request.user.state}}</h2>
+<h2>Bio: {{request.user.bio}}</h2>
+{% if request.user != user %}
 <a href="/following/{{request.user.id}}/"><p>Follow</p></a>
 <a href="/unfollowing/{{request.user.id}}/"><p>Unfollow</p></a>
 {% endif %}
 
+<h2>Following Count: {{follow_count}}</h2>
 
-<h1>Following Count: {{follow_count}}</h1>
-
-<h1>Favorite Breweries: {{follow_count}}</h1>
+<h2>Favorite Breweries: {{follow_count}}</h2>
 
 {% for fav in request.user.fav_brewtypes.all %}
-<h1>Favorite Brew Types: {{fav.name}}</h1>
+<h2>Favorite Brew Types: {{fav.name}}</h2>
 {% endfor %}
 
-<h1>Suggested Friends: {{follow_count}}</h1>
+<h2>Suggested Friends: {{follow_count}}</h2>
 
-<h1>Friends Post: {{follow_count}}</h1>
+<h2>Friends Post: {{follow_count}}</h2>
 
-<h1>Nearby Breweries: {{follow_count}}</h1>
-
+<h2>Nearby Breweries: {{follow_count}}</h2>
 
 {% elif request.user.is_anonymous %}
 <h2>
