@@ -2,9 +2,9 @@
 <br />
 {% include "menu.html" %}
 <br />
-<h2>Please fill out the form below.</h2>
+<h2>Please edit your post below.</h2>
 <br />
-<form action="" method="POST">
+<form action="" method="post">
   {% csrf_token %} {{ form.as_p }}
   <input class="btn btn-primary" type="submit" value="Submit!" />
 </form>

@@ -88,6 +88,25 @@ def post_detail_view(request, post_id):
     )
 
 
+def edit_post_view(request, post_id):
+    edit_post = Posts.objects.filter(id=post_id).first()
+    if edit_post.author == request.user:
+        if request.method == "POST":
+            post_form = PostForm(request.POST)
+            if post_form.is_valid():
+                data = post_form.cleaned_data
+                edit_post.body = data.get('body')
+                edit_post.save()
+            return HttpResponseRedirect(
+                reverse("postview", args=[edit_post.id]))
+        post_form = PostForm(initial={'body': edit_post.body})
+        return render(request, "edit_post.html",
+                      {"form": post_form, "profile_user": request.user})
+    else:
+        return HttpResponseRedirect(reverse(
+            "edit_postview", args=[edit_post.id]))
+
+
 class FollowingView(View):
     def get(self, request, follow_id):
         add_user = CustomUser.objects.filter(id=follow_id).first()
@@ -99,6 +118,7 @@ class FollowingView(View):
 class UnfollowingView(View):
     def get(self, request, unfollow_id):
         remove_user = CustomUser.objects.filter(id=unfollow_id).first()
+        logged_in_user = request.user
         logged_in_user.following.remove(remove_user)
         logged_in_user.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
