@@ -12,17 +12,8 @@ class SignupForm(forms.Form):
     first_name = forms.CharField(max_length=240)
     bio = forms.CharField(max_length=280)
     address = forms.CharField(max_length=280)
-    city_choices = (
-        ('Columbus', 'Columbus'),
-        ('Colorado_Springs', 'Colorado Springs'),
-        ('Carmel', 'Carmel')
-    )
-    state_choices = (
-        ('Ohio', 'Ohio'),
-        ('Colorado', 'Colorado')
-    )
-    city = forms.ChoiceField(choices=city_choices)
-    state = forms.ChoiceField(choices=state_choices)
+    city = forms.CharField(max_length=50)
+    state = forms.CharField(max_length=50)
 
 
 class PostForm(forms.Form):

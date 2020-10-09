@@ -1,5 +1,4 @@
 from django.db import models
-from django.forms import ChoiceField
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 
@@ -11,21 +10,14 @@ class CustomUser(AbstractUser):
     users_following = models.ManyToManyField(
         "self", symmetrical=False, related_name='CustomUser')
     fav_breweries = models.ManyToManyField(
-        "Breweries", symmetrical=False, related_name='fav_breweries', null=True, blank=True)
+        "Breweries", symmetrical=False,
+        related_name='fav_breweries', blank=True)
     fav_brewtypes = models.ManyToManyField(
-        "BrewTypes", symmetrical=False, related_name='fav_brewtypes', null=True, blank=True)
+        "BrewTypes", symmetrical=False,
+        related_name='fav_brewtypes', blank=True)
     address = models.CharField(max_length=280)
-    city_choices = (
-        ('Columbus', 'Columbus'),
-        ('Colorado Springs', 'Colorado_Springs'),
-        ('Carmel', 'Carmel')
-    )
-    state_choices = (
-        ('Ohio', 'Ohio'),
-        ('Colorado', 'Colorado')
-    )
-    city = models.TextField(max_length=240, choices=city_choices)
-    state = models.TextField(max_length=240, choices=state_choices)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
     REQUIRED_FIELDS = ['first_name', 'bio', 'address', 'city', 'state']
 
     def __str__(self):

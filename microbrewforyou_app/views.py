@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.views.generic.base import View
-from microbrewforyou_app.models import CustomUser, Posts, BrewTypes
+from microbrewforyou_app.models import CustomUser, Posts, BrewTypes, Breweries
 from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm
 
 # importing the requests library 
@@ -20,9 +20,9 @@ class IndexView(View):
         if request.user.is_anonymous:
             follow_count = 0
         else:
-            follow_count = len(request.user.users_following.all())        
+            follow_count = len(request.user.users_following.all())
         return render(request, 'index.html', {'follow_count': follow_count})
-            
+
 
 def login_view(request):
     if request.method == "POST":
@@ -95,7 +95,27 @@ def post_detail_view(request, post_id):
         request, "post_detail.html",
         {"post": my_post}
     )
-    
+
+
+def edit_post_view(request, post_id):
+    edit_post = Posts.objects.filter(id=post_id).first()
+    if edit_post.author == request.user:
+        if request.method == "POST":
+            post_form = PostForm(request.POST)
+            if post_form.is_valid():
+                data = post_form.cleaned_data
+                edit_post.body = data.get('body')
+                edit_post.save()
+            return HttpResponseRedirect(
+                reverse("postview", args=[edit_post.id]))
+        post_form = PostForm(initial={'body': edit_post.body})
+        return render(request, "edit_post.html",
+                      {"form": post_form, "profile_user": request.user})
+    else:
+        return HttpResponseRedirect(reverse(
+            "edit_postview", args=[edit_post.id]))
+
+
 class FollowingView(View):
     def get(self, request, follow_id):
         add_user = CustomUser.objects.filter(id=follow_id).first()
@@ -103,12 +123,15 @@ class FollowingView(View):
         request.user.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
+
 class UnfollowingView(View):
     def get(self, request, unfollow_id):
-         remove_user = CustomUser.objects.filter(id=unfollow_id).first()
-         logged_in_user.following.remove(remove_user)
-         logged_in_user.save()
-         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        remove_user = CustomUser.objects.filter(id=unfollow_id).first()
+        logged_in_user = request.user
+        logged_in_user.following.remove(remove_user)
+        logged_in_user.save()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
 
 class UserDetailView(View):
     def get(self, request, user_id):
@@ -117,24 +140,25 @@ class UserDetailView(View):
             author=user_id).order_by('postTime').reverse()
         number_posts = len(user_posts)
         return render(
-            request, "user_detail.html", 
+            request, "user_detail.html",
             {"number_posts": number_posts,
              "selected_user": selected_user,
              "user_posts": user_posts})
 
-# class FavoriteBreweriesView(View):
-    # def get(self, request, follow_id):
-    #     add_user = CustomUser.objects.filter(id=follow_id).first()
-    #     request.user.following.add(add_user)
-    #     request.user.save()
-    #     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+class FavoriteBreweriesView(View):
+    def get(self, request, favorite_id):
+        breweriesname = Breweries.objects.get(id=favorite_id)
+        logged_in_user = request.user
+        logged_in_user.fav_breweries.add(breweriesname)
+        logged_in_user.save()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 class FavoriteBrewTypesView(View):
     def get(self, request, favorite_id):
-        brewtypename = BrewTypes.objects.get(id = favorite_id)
+        brewtypename = BrewTypes.objects.get(id=favorite_id)
         logged_in_user = request.user
         logged_in_user.fav_brewtypes.add(brewtypename)
         logged_in_user.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
