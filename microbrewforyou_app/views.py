@@ -2,7 +2,8 @@ from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.views.generic.base import View
 from microbrewforyou_app.models import CustomUser, Posts, BrewTypes
-from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm
+from microbrewforyou_app.forms import LoginForm, SignupForm,\
+    PostForm, EditUserForm
 # Create your views here.
 
 
@@ -48,6 +49,36 @@ def signup_view(request):
 
     form = SignupForm()
     return render(request, "generic_form.html", {"form": form})
+
+
+def edit_user_view(request, user_id):
+    edit_user = CustomUser.objects.filter(id=user_id).first()
+    if edit_user == request.user:
+        if request.method == "POST":
+            user_form = EditUserForm(request.POST)
+            if user_form.is_valid():
+                data = user_form.cleaned_data
+                edit_user.username = data.get('username')
+                edit_user.password = edit_user.password
+                edit_user.first_name = data.get('first_name')
+                edit_user.bio = data.get('bio')
+                edit_user.address = data.get('address')
+                edit_user.city = data.get('city')
+                edit_user.state = data.get('state')
+                edit_user.save()
+                login(request, edit_user)
+            return HttpResponseRedirect(reverse("homepage"))
+        user_form = EditUserForm(initial={'username': edit_user.username,
+                                          'first_name': edit_user.first_name,
+                                          'bio': edit_user.bio,
+                                          'address': edit_user.address,
+                                          'city': edit_user.city,
+                                          'state': edit_user.state})
+        return render(request, "edit_user.html",
+                      {"form": user_form, "profile_user": request.user})
+    else:
+        return HttpResponseRedirect(reverse(
+            "edit_userview", args=[edit_user.id]))
 
 
 def logout_view(request):
