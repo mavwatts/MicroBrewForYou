@@ -13,4 +13,9 @@
   ><br />
   {{ post.body }}
 </h3>
-{% endif %} {% endblock %}
+<br />
+{% if request.user == post.author %}<a
+  href="/editpost/{{ post.id }}"
+  class="btn btn-primary"
+  >Edit Post</a
+>{% endif %} {% endif %} {% endblock %}
