@@ -1,0 +1,6 @@
+<h1>Favorite Breweries:</h1>
+{% for fav in request.user.fav_breweries.all %}
+<li>
+  {{fav.name}}  
+</li>
+{% endfor %}

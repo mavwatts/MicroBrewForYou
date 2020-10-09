@@ -17,8 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from microbrewforyou_app.views import login_view, logout_view,\
     signup_view, AddPostView, post_detail_view, IndexView,\
-    UserDetailView, FavoriteBrewTypesView, edit_post_view,\
-    edit_user_view
+    UserDetailView, FavoriteBrewTypesView, FavoriteBreweriesView, edit_post_view, FollowingView, UnfollowingView, edit_user_view
 
 
 urlpatterns = [
@@ -31,9 +30,9 @@ urlpatterns = [
     path('login/', login_view, name="loginview"),
     path('signup/', signup_view, name="signupview"),
     path('logout/', logout_view, name="logoutview"),
-    path('fav_brewtypes/<int:favorite_id>/',
-         FavoriteBrewTypesView.as_view(), name="favoritebrewtypes"),
-    # path('unfollowing/<int:unfollow_id>/', UnfollowingView.as_view(),
-    # name="unfollowing"),
+    path('fav_brewtypes/<int:favorite_id>/', FavoriteBrewTypesView.as_view(), name="favoritebrewtypes"),
+    path('fav_breweries/<int:favorite_id>/', FavoriteBreweriesView.as_view(), name="favoritebreweries"),
+    path('unfollowing/<int:unfollow_id>/', UnfollowingView.as_view(), name="unfollowing"),
+    path('following/<int:follow_id>/', FollowingView.as_view(), name="following"),
     path('admin/', admin.site.urls),
 ]

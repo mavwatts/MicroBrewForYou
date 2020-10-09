@@ -1,13 +1,21 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.views.generic.base import View
-from microbrewforyou_app.models import CustomUser, Posts, BrewTypes
-from microbrewforyou_app.forms import LoginForm, SignupForm,\
-    PostForm, EditUserForm
+from microbrewforyou_app.models import CustomUser, Posts, BrewTypes, Breweries
+from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm
+
+# importing the requests library 
+# import requests 
+
+
+# class SearchView(View):
+#     def get(self, request):
+#         for breweries in requests.get(url='https://api.openbrewerydb.org/breweries').json():
+#             print(breweries['street'])
+
+
 # Create your views here.
-
-
-class IndexView(View):  # homepage/profile view
+class IndexView(View):
     def get(self, request):
         if request.user.is_anonymous:
             follow_count = 0
@@ -167,12 +175,14 @@ class UserDetailView(View):
              "selected_user": selected_user,
              "user_posts": user_posts})
 
-# class FavoriteBreweriesView(View):
-    # def get(self, request, follow_id):
-    #     add_user = CustomUser.objects.filter(id=follow_id).first()
-    #     request.user.following.add(add_user)
-    #     request.user.save()
-    #     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+class FavoriteBreweriesView(View):
+    def get(self, request, favorite_id):
+        breweriesname = Breweries.objects.get(id=favorite_id)
+        logged_in_user = request.user
+        logged_in_user.fav_breweries.add(breweriesname)
+        logged_in_user.save()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 class FavoriteBrewTypesView(View):
