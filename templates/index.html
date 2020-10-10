@@ -5,17 +5,11 @@
 
 {% if request.user.is_authenticated %}
 <h1>User Profile</h1>
-{{request.user}} 
-  {% if request.user != user %}
-  <a href="/following/{{request.user.id}}/" class="btn btn-primary">Follow</a>
-  <a href="/unfollowing/{{request.user.id}}/" class="btn btn-primary">Unfollow</a>
-  {% endif %}
+{{request.user}}
 
 <h1>Following Count: {{follow_count}}</h1>
 
-{% include "favorite_breweries.html" %} 
-
-{% include "favorite_brew_type.html" %}
+{% include "favorite_breweries.html" %} {% include "favorite_brew_type.html" %}
 
 <h2>Suggested Friends: {{follow_count}}</h2>
 
@@ -25,5 +19,4 @@
 <h2>
   Welcome, please <a href="/login/">login</a> or <a href="/signup/">signup.</a>
 </h2>
-{% endif %} 
-{% endblock %}
+{% endif %} {% endblock %}
