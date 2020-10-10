@@ -2,15 +2,17 @@ from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.views.generic.base import View
 from microbrewforyou_app.models import CustomUser, Posts, BrewTypes, Breweries
-from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm
+from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm,\
+    EditUserForm
 
-# importing the requests library 
-# import requests 
+# importing the requests library
+# import requests
 
 
 # class SearchView(View):
 #     def get(self, request):
-#         for breweries in requests.get(url='https://api.openbrewerydb.org/breweries').json():
+#         for breweries in requests.get(
+# url='https://api.openbrewerydb.org/breweries').json():
 #             print(breweries['street'])
 
 
@@ -149,31 +151,38 @@ def edit_post_view(request, post_id):
 class FollowingView(View):
     def get(self, request, follow_id):
         add_user = CustomUser.objects.filter(id=follow_id).first()
-        request.user.following.add(add_user)
+        request.user.users_following.add(add_user)
         request.user.save()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        return HttpResponseRedirect(reverse(
+            "userview", args=[add_user.id]))
 
 
 class UnfollowingView(View):
     def get(self, request, unfollow_id):
         remove_user = CustomUser.objects.filter(id=unfollow_id).first()
         logged_in_user = request.user
-        logged_in_user.following.remove(remove_user)
+        logged_in_user.users_following.remove(remove_user)
         logged_in_user.save()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        return HttpResponseRedirect(reverse(
+            "userview", args=[remove_user.id]))
 
 
 class UserDetailView(View):
     def get(self, request, user_id):
         selected_user = CustomUser.objects.filter(id=user_id).first()
+        following_list = request.user.users_following.all()
+        number_following = len(selected_user.users_following.all())
         user_posts = Posts.objects.filter(
             author=user_id).order_by('postTime').reverse()
         number_posts = len(user_posts)
+        # breakpoint()
         return render(
             request, "user_detail.html",
             {"number_posts": number_posts,
              "selected_user": selected_user,
-             "user_posts": user_posts})
+             "user_posts": user_posts,
+             "following_list": following_list,
+             "number_following": number_following})
 
 
 class FavoriteBreweriesView(View):

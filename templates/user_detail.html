@@ -5,11 +5,18 @@
 <div class="main-user">
     <div class="two-column">
         <h2>Name: {{ selected_user.first_name }}</h2>
-        <h2>Bio: {{ selected_user.bio }}</h2>
-        <h2>City: {{ selected_user.city }}</h2>
-        <h2>Following Users: 0</h2>
-        <h2>Following Breweries: 0</h2>
-        <h2>Favorite Brew Types: List Types of Brew</h2>
+        <h3>Bio: {{ selected_user.bio }}</h3>
+        <h3>City: {{ selected_user.city }}</h3>
+        <h3>Following Users: {{ number_following }}</h3>
+        <h3>Following Breweries: 0</h3>
+        <h3>Favorite Brew Types: List Types of Brew</h3>
+        {% if request.user != selected_user %}
+        {% if selected_user not in following_list %}
+        <a href="/following/{{selected_user.id}}/" class="btn btn-primary">Follow</a>
+        {% else %}
+        <a href="/unfollowing/{{selected_user.id}}/" class="btn btn-primary">Unfollow</a>
+        {% endif %}
+        {% endif %}
     </div>
     <div class="two-column">
         <h2>{{ selected_user }}'s Posts</h2>
