@@ -16,7 +16,7 @@ class BreweriesReloadView(View):
             full_breweries_list = r.json()  # populate variable with full list from api
             current_breweries_in_model = Breweries.objects.all()  # current in model
             print('Api brewery master list count: ', len(full_breweries_list))
-            print('Model Brewery list count: ',
+            print('Model Brewery list count start: ',
                   len(current_breweries_in_model))
 
             for item in full_breweries_list:
@@ -24,15 +24,15 @@ class BreweriesReloadView(View):
                 list_item_city = item['city']
                 for model_item in current_breweries_in_model:
                     if list_item_name == model_item.name and list_item_city == model_item.city:
-                        print('match')
-                        print('list name: ', list_item_name)
-                        print('model name', model_item.name)
+                        # print('match')
+                        # print('list name: ', list_item_name)
+                        # print('model name', model_item.name)
                         full_match = True
                         break  # match found break out of for loop for model
                     else:
-                        print('no match')
-                        print('list name: ', list_item_name)
-                        print('model name', model_item.name)
+                        # print('no match')
+                        # print('list name: ', list_item_name)
+                        # print('model name', model_item.name)
                         full_match = False
                         continue
 
@@ -47,7 +47,9 @@ class BreweriesReloadView(View):
                     )
                 else:
                     continue
-
+            current_breweries_in_model = Breweries.objects.all()  # current in model
+            print('Model Brewery list count end: ',
+                  len(current_breweries_in_model))
             return render(request, 'index.html')
         return render(request, 'index.html')
 
