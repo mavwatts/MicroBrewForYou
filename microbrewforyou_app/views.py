@@ -5,18 +5,29 @@ from microbrewforyou_app.models import CustomUser, Posts, BrewTypes, Breweries
 from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm,\
     EditUserForm
 
-# importing the requests library
-# import requests
+import requests
 
 
-# class SearchView(View):
-#     def get(self, request):
-#         for breweries in requests.get(
-# url='https://api.openbrewerydb.org/breweries').json():
-#             print(breweries['street'])
+class CitySearchView(View):
+    def get(self, request, search_city):
+        city_breweries_list = []
+        r = requests.get(
+            url=f'https://api.openbrewerydb.org/breweries?by_city={search_city}')
+        # breakpoint()
+        for brewery in r.json():
+            # if search_city.lower() == single_brewery.city.lower() and search_state.lower() == single_brewery.state.lower():
+            city_breweries_list.append(brewery)
+        print(len(city_breweries_list))
+        for item in city_breweries_list:
+            print(item['name'])
+            print(item['street'])
+            print(item['city'])
+            print(item['state'])
+            print(item['phone'])
+            print(item['website_url'])
+        return render(request, 'index.html')
 
 
-# Create your views here.
 class IndexView(View):
     def get(self, request):
         if request.user.is_anonymous:
