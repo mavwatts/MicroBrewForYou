@@ -11,8 +11,10 @@ import requests
 class BreweriesReloadView(View):
     def get(self, request):
         if request.user.is_superuser:
+            full_breweries_list = []
             r = requests.get(
                 url='https://raw.githubusercontent.com/openbrewerydb/openbrewerydb/master/breweries.json')
+<<<<<<< HEAD
             full_breweries_list = r.json()  # populate variable with full list from api
             current_breweries_in_model = Breweries.objects.all()  # current in model
             print('Api brewery master list count: ', len(full_breweries_list))
@@ -37,6 +39,26 @@ class BreweriesReloadView(View):
                         continue
 
                 if full_match is False:
+=======
+            # breakpoint()
+            for brewery in r.json():
+                # if search_city.lower() == single_brewery.city.lower()
+                # and search_state.lower() == single_brewery.state.lower():
+                full_breweries_list.append(brewery)
+            print(len(full_breweries_list))
+            for item in full_breweries_list:
+                print(item['name'])
+                print(item['street'])
+                print(item['city'])
+                print(item['state'])
+                print(item['phone'])
+                print(item['website_url'])
+                print('--------------------')
+
+                current_breweries_list_by_city = Breweries.objects.filter(
+                    city={item['city']}, state={item['state']})
+                if item['name'] not in current_breweries_list_by_city:
+>>>>>>> parent of a451e62... Still working on duplicates issue during reload
                     new_brewery = Breweries.objects.create(
                         name=item['name'],
                         phone=item['phone'],
@@ -52,31 +74,6 @@ class BreweriesReloadView(View):
                   len(current_breweries_in_model))
             return render(request, 'index.html')
         return render(request, 'index.html')
-
-        #     current_breweries_in_model = Breweries.objects.all()
-        #     for item in full_breweries_list:
-        #         match_breweries = True
-        #         list_item_name = item['name']
-        #         list_item_city = item['city']
-        #         for model_item in current_breweries_in_model:
-        #             if list_item_name == model_item.name and list_item_city == model_item.city:
-        #                 # breakpoint()
-        #                 break
-        #             else:
-        #                 match_breweries = False
-        #         if match_breweries is False:
-        #             new_brewery = Breweries.objects.create(
-        #                 name=item['name'],
-        #                 phone=item['phone'],
-        #                 address=item['street'],
-        #                 city=item['city'],
-        #                 state=item['state'],
-        #                 website=item['website_url']
-        #             )
-        #     print('Model Brewery list count: ',
-        #           len(current_breweries_in_model))
-        #     return render(request, 'index.html')
-        # return render(request, 'index.html')
 
 
 class IndexView(View):
