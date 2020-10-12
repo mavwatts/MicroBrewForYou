@@ -15,7 +15,8 @@ class CitySearchView(View):
             url=f'https://api.openbrewerydb.org/breweries?by_city={search_city}')
         # breakpoint()
         for brewery in r.json():
-            # if search_city.lower() == single_brewery.city.lower() and search_state.lower() == single_brewery.state.lower():
+            # if search_city.lower() == single_brewery.city.lower()
+            # and search_state.lower() == single_brewery.state.lower():
             city_breweries_list.append(brewery)
         print(len(city_breweries_list))
         for item in city_breweries_list:
@@ -25,6 +26,7 @@ class CitySearchView(View):
             print(item['state'])
             print(item['phone'])
             print(item['website_url'])
+            print('--------------------')
         return render(request, 'index.html')
 
 
