@@ -1,7 +1,9 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, HttpResponseRedirect, reverse, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
-from django.views.generic.base import View
-from microbrewforyou_app.models import CustomUser, Posts, BrewTypes, Breweries
+from django.views.generic import ListView
+from django.views.generic.base import View, TemplateView
+from microbrewforyou_app.models import CustomUser, Posts, Like, BrewTypes, Breweries
 from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm,\
     EditUserForm
 
@@ -35,8 +37,7 @@ def login_view(request):
                 "username"), password=data.get("password"))
             if user:
                 login(request, user)
-                return HttpResponseRedirect(request.GET.get(
-                    'next', reverse("homepage")))
+                return HttpResponseRedirect(request.GET.get('next', ))
     form = LoginForm()
     return render(request, "generic_form.html", {"form": form})
 
@@ -95,6 +96,36 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("homepage"))
 
+#################################
+class PostListView(ListView):
+	model = Posts
+	template_name = 'index.html'
+	context_object_name = 'posts'
+	ordering = ['-date_posted']
+
+	def get_context_data(self, **kwargs):
+		context = super(PostListView, self).get_context_data(**kwargs)
+		if self.request.user.is_authenticated:
+			liked = [i for i in Posts.objects.all() if Like.objects.filter(user = self.request.user, post=i)]
+			context['liked_post'] = liked
+		return context
+
+class UserPostListView(LoginRequiredMixin, ListView):
+	model = Posts
+	template_name = 'index.html'
+	context_object_name = 'posts'
+
+	def get_context_data(self, **kwargs):
+		context = super(UserPostListView, self).get_context_data(**kwargs)
+		user = get_object_or_404(CustomUser, username=self.kwargs.get('username'))
+		liked = [i for i in Posts.objects.filter(user_name=user) if Like.objects.filter(user = self.request.user, post=i)]
+		context['liked_post'] = liked
+		return context
+
+	def get_queryset(self):
+		user = get_object_or_404(CustomUser, username=self.kwargs.get('username'))
+		return Posts.objects.filter(user_name=user).order_by('-date_posted')
+#########################################
 
 class AddPostView(View):
     def get(self, request):
@@ -191,7 +222,7 @@ class FavoriteBreweriesView(View):
         logged_in_user = request.user
         logged_in_user.fav_breweries.add(breweriesname)
         logged_in_user.save()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', ))
 
 
 class FavoriteBrewTypesView(View):
@@ -200,4 +231,4 @@ class FavoriteBrewTypesView(View):
         logged_in_user = request.user
         logged_in_user.fav_brewtypes.add(brewtypename)
         logged_in_user.save()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', ))

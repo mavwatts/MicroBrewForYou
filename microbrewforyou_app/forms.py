@@ -27,3 +27,5 @@ class EditUserForm(forms.Form):
 
 class PostForm(forms.Form):
     body = forms.CharField(widget=forms.Textarea)
+
+

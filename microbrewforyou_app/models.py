@@ -23,7 +23,6 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
-
 class Posts(models.Model):
     author = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name='author')
@@ -33,7 +32,9 @@ class Posts(models.Model):
 
     def __str__(self):
         return self.body
-
+class Like(models.Model):
+	user = models.ForeignKey(CustomUser, related_name='likes', on_delete=models.CASCADE)
+	post = models.ForeignKey(Posts, related_name='likes', on_delete=models.CASCADE)
 
 class Breweries(models.Model):
     name = models.CharField(max_length=80)

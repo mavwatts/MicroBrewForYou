@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+ 	<div class="container">
+	    <div>
+	      <div>
+	        {% for post in posts %}
+	        <div>
+	          <div>
+                  <h2>Post Details</h2>
+                  <h3>
+                    <span class="small"><a href="/user/{{ post.author.id }}/">{{ post.author}}</a> -
+                    <a href="/post/{{ post.id }}/">{{post.postTime}}</a></span><br />
+                    {{ post.body }}
+                  </h3>
+                <br />
+                  {% if request.user == post.author %}
+                      <a href="/editpost/{{ post.id }}" class="btn btn-primary">Edit Post</a>
+                  {% endif %}
+	          </div>
+
+	          <a href="{% url 'post-detail' post.id %}"></a>
+	          {% if post.tags %}
+	          <br><p class="text-danger ml-3"><b>Tags: <i>{{ post.tags }}</i></b></p>
+	          {% endif %}
+	          <div class="card-footer">
+	          	<button class=id="{{ post.id }}">
+			        {% if post in liked_post %}
+			            <a href="{% url 'post-like' %}" style="color:red;" id="likebtn{{ post.id }}"> Unlike</a> | {{post.likes.count}}
+			        {% else %}
+			            <a href="{% url 'post-like' %}" style="color:green;" id="likebtn{{ post.id }}"> Like</a> | {{post.likes.count}}
+			        {% endif %}
+			    </button>
+	          </div>
+	        </div>
+	        {% endfor %}
+	  	   </div>
+	    </div>
+	</div>
+
+{% endblock content %}
+{% block jsfiles %}
+<script>
+	$(".like").click(function (e) {
+    var id = this.id;
+    var href = $('.like').find('a').attr('href');
+    e.preventDefault();
+
+    $.ajax({
+        url: href,
+        data: {
+          'likeId': id
+        },
+        success: function(response){
+          if(response.liked){
+            $('#likebtn' + id).html("Unlike");
+            $('#likebtn' + id).css("color", "red")
+          }
+          else{
+            $('#likebtn' + id).html("Like");
+            $('#likebtn' + id).css("color", "green")
+          }
+        }
+      })
+});
+</script>
+{% endblock jsfiles %}
