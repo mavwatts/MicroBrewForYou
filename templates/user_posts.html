@@ -1,4 +1,8 @@
-{% extends "base.html" %}
+{% extends 'base.html' %} {% block content %}
+<br />
+{% include "menu.html" %}
+<br />
+
 {% block content %}
  	<div class="container">
 	    <div>
@@ -20,9 +24,9 @@
 
 	          <a href="{% url 'post-detail' post.id %}"></a>
 	          {% if post.tags %}
-	          <br><p class="text-danger ml-3"><b>Tags: <i>{{ post.tags }}</i></b></p>
+	          <br><p><b>Tags: <i>{{ post.tags }}</i></b></p>
 	          {% endif %}
-	          <div class="card-footer">
+	          <div>
 	          	<button class=id="{{ post.id }}">
 			        {% if post in liked_post %}
 			            <a href="{% url 'post-like' %}" style="color:red;" id="likebtn{{ post.id }}"> Unlike</a> | {{post.likes.count}}

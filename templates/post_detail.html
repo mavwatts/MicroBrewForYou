@@ -2,6 +2,7 @@
 <br />
 {% include "menu.html" %}
 <br />
+
 {% if not post %}
 <h1>The post you are looking for does not exist here.</h1>
 {% else %}
@@ -17,5 +18,4 @@
 {% if request.user == post.author %}<a
   href="/editpost/{{ post.id }}"
   class="btn btn-primary"
-  >Edit Post</a>
-{% endif %} {% endif %} {% endblock %}
+  >Edit Post</a>{% endif %} {% endif %} {% endblock %}
