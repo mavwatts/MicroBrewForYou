@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Breweries Nearby:</h1>
+{% for brewery in brewery_list_by_city %}
+<h2>Name: {{brewery.name}}</h2>
+{% if brewery.phone %}
+<h3>Phone: {{brewery.phone}}</h3>
+{% endif %} {% if brewery.address %}
+<h3>Address: {{brewery.address}}</h3>
+{% endif %} {% if brewery.city %}
+<h3>City: {{brewery.city}}</h3>
+{% endif %} {% if brewery.state %}
+<h3>State: {{brewery.state}}</h3>
+{% endif %} {% if brewery.website %}
+<h3>
+  Website: <a href="{{brewery.website}}" target="_blank">{{brewery.website}}</a>
+</h3>
+{% endif %}
+<br />
+{% if request.user %}<a href="/" class="btn btn-primary">Add as Favorite</a>
+<a href="/" class="btn btn-primary">Remove as Favorite</a>
+<hr />
+<br />
+{% endif %} {% endfor %}{% endblock %}

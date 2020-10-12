@@ -227,6 +227,15 @@ class FavoriteBreweriesView(View):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
+class NearbyBreweriesView(View):
+    def get(self, request):
+        brewery_list_by_city = Breweries.objects.filter(city=request.user.city)
+
+        return render(
+            request, "nearby_breweries.html",
+            {"brewery_list_by_city": brewery_list_by_city})
+
+
 class FavoriteBrewTypesView(View):
     def get(self, request, favorite_id):
         brewtypename = BrewTypes.objects.get(id=favorite_id)
