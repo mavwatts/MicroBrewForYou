@@ -9,18 +9,18 @@ import requests
 
 
 class BreweriesReloadView(View):
-    def get(self, request, search_city):
+    def get(self, request):
         if request.user.is_superuser:
-            city_breweries_list = []
+            full_breweries_list = []
             r = requests.get(
-                url=f'https://api.openbrewerydb.org/breweries?by_city={search_city}')
+                url='https://raw.githubusercontent.com/openbrewerydb/openbrewerydb/master/breweries.json')
             # breakpoint()
             for brewery in r.json():
                 # if search_city.lower() == single_brewery.city.lower()
                 # and search_state.lower() == single_brewery.state.lower():
-                city_breweries_list.append(brewery)
-            print(len(city_breweries_list))
-            for item in city_breweries_list:
+                full_breweries_list.append(brewery)
+            print(len(full_breweries_list))
+            for item in full_breweries_list:
                 print(item['name'])
                 print(item['street'])
                 print(item['city'])
@@ -28,6 +28,21 @@ class BreweriesReloadView(View):
                 print(item['phone'])
                 print(item['website_url'])
                 print('--------------------')
+
+                current_breweries_list_by_city = Breweries.objects.filter(
+                    city={item['city']}, state={item['state']})
+                if item['name'] not in current_breweries_list_by_city:
+                    new_brewery = Breweries.objects.create(
+                        name=item['name'],
+                        phone=item['phone'],
+                        address=item['street'],
+                        city=item['city'],
+                        state=item['state'],
+                        website=item['website_url']
+                    )
+                else:
+                    continue
+
             return render(request, 'index.html')
         return render(request, 'index.html')
 

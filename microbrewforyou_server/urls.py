@@ -25,8 +25,8 @@ from microbrewforyou_app.views import login_view, logout_view,\
 urlpatterns = [
     path('', IndexView.as_view(), name="homepage"),
     path('post/<int:post_id>/', post_detail_view, name="postview"),
-    path('loadbreweries/<str:search_city>',
-         BreweriesReloadView.as_view(), name="addbreweriesview"),
+    path('loadbreweries/',
+         BreweriesReloadView.as_view(), name="loadbreweriesview"),
     path('editpost/<int:post_id>/', edit_post_view, name="edit_postview"),
     path('addpost/', AddPostView.as_view(), name="addpostview"),
     path('user/<int:user_id>/', UserDetailView.as_view(), name="userview"),
