@@ -38,9 +38,9 @@ class Posts(models.Model):
 
 class Breweries(models.Model):
     name = models.CharField(max_length=80)
-    phone = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20, default='')
     city = models.TextField(max_length=80)
-    state = models.TextField(max_length=80)
+    state = models.TextField(max_length=80, default='')
     address = models.TextField(max_length=240, default='')
     website = models.URLField(max_length=200)
 

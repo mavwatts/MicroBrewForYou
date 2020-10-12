@@ -8,25 +8,27 @@ from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm,\
 import requests
 
 
-class CitySearchView(View):
+class BreweriesReloadView(View):
     def get(self, request, search_city):
-        city_breweries_list = []
-        r = requests.get(
-            url=f'https://api.openbrewerydb.org/breweries?by_city={search_city}')
-        # breakpoint()
-        for brewery in r.json():
-            # if search_city.lower() == single_brewery.city.lower()
-            # and search_state.lower() == single_brewery.state.lower():
-            city_breweries_list.append(brewery)
-        print(len(city_breweries_list))
-        for item in city_breweries_list:
-            print(item['name'])
-            print(item['street'])
-            print(item['city'])
-            print(item['state'])
-            print(item['phone'])
-            print(item['website_url'])
-            print('--------------------')
+        if request.user.is_superuser:
+            city_breweries_list = []
+            r = requests.get(
+                url=f'https://api.openbrewerydb.org/breweries?by_city={search_city}')
+            # breakpoint()
+            for brewery in r.json():
+                # if search_city.lower() == single_brewery.city.lower()
+                # and search_state.lower() == single_brewery.state.lower():
+                city_breweries_list.append(brewery)
+            print(len(city_breweries_list))
+            for item in city_breweries_list:
+                print(item['name'])
+                print(item['street'])
+                print(item['city'])
+                print(item['state'])
+                print(item['phone'])
+                print(item['website_url'])
+                print('--------------------')
+            return render(request, 'index.html')
         return render(request, 'index.html')
 
 
