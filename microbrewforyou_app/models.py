@@ -18,6 +18,7 @@ class CustomUser(AbstractUser):
     address = models.CharField(max_length=280)
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
+    user_since = models.DateTimeField(default=timezone.now)
     REQUIRED_FIELDS = ['first_name', 'bio', 'address', 'city', 'state']
 
     def __str__(self):
@@ -37,7 +38,9 @@ class Posts(models.Model):
 
 class Breweries(models.Model):
     name = models.CharField(max_length=80)
-    city = models.TextField(max_length=240)
+    phone = models.CharField(max_length=20, default='')
+    city = models.TextField(max_length=80)
+    state = models.TextField(max_length=80, default='')
     address = models.TextField(max_length=240, default='')
     website = models.URLField(max_length=200)
 
