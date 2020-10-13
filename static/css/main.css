@@ -38,3 +38,11 @@ a.custom_link {
 a.custom_link:hover {
   color: #e0e1e5;
 }
+
+img.logo_mbfy {
+  position: absolute;
+  top: 25px;
+  left: 31px;
+  width: 250px;
+  height: 250px;
+}
