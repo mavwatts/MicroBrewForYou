@@ -3,10 +3,13 @@
 <br />
 
 {% if request.user.is_authenticated %}
-<h1>User Profile</h1>
-{{request.user}}
-
-<h1>Following Count: {{follow_count}}</h1>
+<h1>
+  Profile for {{request.user}}
+  <a href="/edituser/{{request.user.id}}/" class="btn button-menu">Edit User</a>
+</h1>
+<br />
+<h2>Bio: {{request.user.bio}}</h2>
+<h2>Following Count: {{follow_count}}</h2>
 
 {% include "favorite_breweries.html" %} {% include "favorite_brew_type.html" %}
 

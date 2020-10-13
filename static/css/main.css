@@ -46,3 +46,9 @@ img.logo_mbfy {
   width: 250px;
   height: 250px;
 }
+
+form input,
+select,
+textarea {
+  color: black;
+}
