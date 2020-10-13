@@ -64,6 +64,9 @@ div.footer {
   color: #e0e1e5;
   padding: 20px;
   padding-left: 30px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 div.quote {
@@ -72,4 +75,19 @@ div.quote {
   top: -1px;
   width: 600px;
   float: left;
+}
+
+.submit_wrapper {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 1.5em;
+}
+
+#login_signup_spacing {
+  justify-content: center;
+  align-items: center;
+  padding: 1.5em;
+  display: flex;
+
 }
