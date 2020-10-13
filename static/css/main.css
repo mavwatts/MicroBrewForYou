@@ -4,3 +4,37 @@
 .main-user {
   display: flex;
 }
+div.main_menu {
+  padding: 15px;
+  background-color: #2f2d30;
+}
+body#custom_body {
+  background-color: #1b1b1b;
+  color: #e0e1e5;
+}
+
+input[type="submit"] {
+  background-color: #554e45;
+  color: #e0e1e5;
+  font-size: 18px;
+}
+input[type="submit"]:hover {
+  background-color: #e0e1e5;
+  color: black;
+}
+a.button-menu {
+  background-color: #554e45;
+  color: #e0e1e5;
+  font-size: 18px;
+}
+a.button-menu:hover {
+  background-color: #e0e1e5;
+  color: black;
+}
+
+a.custom_link {
+  color: #554e45;
+}
+a.custom_link:hover {
+  color: #e0e1e5;
+}
