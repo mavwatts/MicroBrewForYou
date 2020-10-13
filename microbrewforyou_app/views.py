@@ -52,11 +52,13 @@ class BreweriesReloadView(View):
 
 class IndexView(View):
     def get(self, request):
+        words_quote = "They who drink beer, think beer."
+        words_author = "Washington Irving"
         if request.user.is_anonymous:
             follow_count = 0
         else:
             follow_count = len(request.user.users_following.all())
-        return render(request, 'index.html', {'follow_count': follow_count})
+        return render(request, 'index.html', {'follow_count': follow_count, 'words_author': words_author, "words_quote": words_quote})
 
 
 def login_view(request):
@@ -71,7 +73,9 @@ def login_view(request):
                 return HttpResponseRedirect(request.GET.get(
                     'next', reverse("homepage")))
     form = LoginForm()
-    return render(request, "login.html", {"form": form})
+    words_quote = "He was a wise man who invented beer."
+    words_author = "Plato"
+    return render(request, "login.html", {"form": form, 'words_author': words_author, "words_quote": words_quote})
 
 
 def signup_view(request):
@@ -91,7 +95,9 @@ def signup_view(request):
             return HttpResponseRedirect(reverse("homepage"))
 
     form = SignupForm()
-    return render(request, "sign_up.html", {"form": form})
+    words_quote = "Beer, it’s the best damn drink in the world."
+    words_author = "Jack Nicholson"
+    return render(request, "sign_up.html", {"form": form, 'words_author': words_author, "words_quote": words_quote})
 
 
 def edit_user_view(request, user_id):
@@ -117,8 +123,10 @@ def edit_user_view(request, user_id):
                                           'address': edit_user.address,
                                           'city': edit_user.city,
                                           'state': edit_user.state})
+        words_quote = "A man who lies about beer makes enemies."
+        words_author = "Stephen King"
         return render(request, "edit_user.html",
-                      {"form": user_form, "profile_user": request.user})
+                      {"form": user_form, "profile_user": request.user, 'words_author': words_author, "words_quote": words_quote})
     else:
         return HttpResponseRedirect(reverse(
             "edit_userview", args=[edit_user.id]))
@@ -131,10 +139,13 @@ def logout_view(request):
 
 class AddPostView(View):
     def get(self, request):
+        words_quote = "For a quart of Ale is a dish for a king."
+        words_author = "William Shakespeare"
         form = PostForm()
         return render(
             request, "add_post.html",
-            {"form": form, "profile_user": request.user}
+            {"form": form, "profile_user": request.user,
+                'words_author': words_author, "words_quote": words_quote}
         )
 
     def post(self, request):
@@ -148,17 +159,23 @@ class AddPostView(View):
             return HttpResponseRedirect(
                 reverse("postview", args=[new_post.id])
             )
+        words_quote = "Beer is proof that God loves us and wants us to be happy."
+        words_author = "Benjamin Franklin"
         return render(
             request, "add_post.html",
-            {"form": form, "profile_user": request.user}
+            {"form": form, "profile_user": request.user,
+                'words_author': words_author, "words_quote": words_quote}
         )
 
 
 def post_detail_view(request, post_id):
     my_post = Posts.objects.filter(id=post_id).first()
+    words_quote = "Beer, it’s the best damn drink in the world."
+    words_author = "Jack Nicholson"
     return render(
         request, "post_detail.html",
-        {"post": my_post}
+        {"post": my_post,
+         'words_author': words_author, "words_quote": words_quote}
     )
 
 
@@ -174,8 +191,12 @@ def edit_post_view(request, post_id):
             return HttpResponseRedirect(
                 reverse("postview", args=[edit_post.id]))
         post_form = PostForm(initial={'body': edit_post.body})
+        words_quote = "He was a wise man who invented beer."
+        words_author = "Plato"
         return render(request, "edit_post.html",
-                      {"form": post_form, "profile_user": request.user})
+                      {"form": post_form, "profile_user": request.user,
+                       'words_author': words_author, "words_quote": words_quote}
+                      )
     else:
         return HttpResponseRedirect(reverse(
             "edit_postview", args=[edit_post.id]))
@@ -212,13 +233,17 @@ class UserDetailView(View):
         user_posts = Posts.objects.filter(
             author=user_id).order_by('postTime').reverse()
         number_posts = len(user_posts)
+        words_quote = "For a quart of Ale is a dish for a king."
+        words_author = "William Shakespeare"
         return render(
             request, "user_detail.html",
             {"number_posts": number_posts,
              "selected_user": selected_user,
              "user_posts": user_posts,
              "following_list": following_list,
-             "number_following": number_following})
+             "number_following": number_following,
+             'words_author': words_author, "words_quote": words_quote}
+        )
 
 
 class FavoriteBreweriesView(View):
