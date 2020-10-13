@@ -46,10 +46,11 @@ a.custom_link:hover {
 
 img.logo_mbfy {
   position: absolute;
-  top: 25px;
-  left: 31px;
+  top: 30px;
+  left: 30px;
   width: 250px;
   height: 250px;
+  z-index: 1;
 }
 
 form input,
@@ -71,9 +72,7 @@ div.footer {
 
 div.quote {
   position: relative;
-  left: -184px;
-  top: -1px;
-  width: 600px;
+  margin-left: 12px;
   float: left;
 }
 
