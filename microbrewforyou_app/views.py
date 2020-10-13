@@ -203,12 +203,15 @@ class UnfollowingView(View):
 class UserDetailView(View):
     def get(self, request, user_id):
         selected_user = CustomUser.objects.filter(id=user_id).first()
+
         following_list = request.user.users_following.all()
-        number_following = len(selected_user.users_following.all())
+        if selected_user.users_following:
+            number_following = len(selected_user.users_following.all())
+        else:
+            number_following = 0
         user_posts = Posts.objects.filter(
             author=user_id).order_by('postTime').reverse()
         number_posts = len(user_posts)
-        # breakpoint()
         return render(
             request, "user_detail.html",
             {"number_posts": number_posts,

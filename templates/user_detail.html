@@ -2,7 +2,7 @@
 <br />
 <div class="main-user">
     <div class="two-column">
-        <h2>Name: {{ selected_user.first_name }}</h2>
+        <h2>Name: {{ selected_user.first_name }} {% if request.user == selected_user %}<a href="/edituser/{{selected_user.id}}/" class="btn button-menu">Edit User</a>{% endif %}</h2>
         <h3>Bio: {{ selected_user.bio }}</h3>
         <h3>City: {{ selected_user.city }}</h3>
         <h3>Following Users: {{ number_following }}</h3>
