@@ -13,6 +13,11 @@ body#custom_body {
   color: #e0e1e5;
 }
 
+.container_main {
+  margin-left: 70px;
+  margin-right: 70px;
+}
+
 input[type="submit"] {
   background-color: #554e45;
   color: #e0e1e5;
@@ -48,7 +53,23 @@ img.logo_mbfy {
 }
 
 form input,
-select,
-textarea {
+form select,
+form textarea {
   color: black;
+}
+
+div.footer {
+  background-color: black;
+  height: 62px;
+  color: #e0e1e5;
+  padding: 20px;
+  padding-left: 30px;
+}
+
+div.quote {
+  position: relative;
+  left: -184px;
+  top: -1px;
+  width: 600px;
+  float: left;
 }
