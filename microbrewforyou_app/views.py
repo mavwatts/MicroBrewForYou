@@ -71,7 +71,7 @@ def login_view(request):
                 return HttpResponseRedirect(request.GET.get(
                     'next', reverse("homepage")))
     form = LoginForm()
-    return render(request, "generic_form.html", {"form": form})
+    return render(request, "login.html", {"form": form})
 
 
 def signup_view(request):
@@ -91,7 +91,7 @@ def signup_view(request):
             return HttpResponseRedirect(reverse("homepage"))
 
     form = SignupForm()
-    return render(request, "generic_form.html", {"form": form})
+    return render(request, "sign_up.html", {"form": form})
 
 
 def edit_user_view(request, user_id):

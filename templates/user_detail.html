@@ -1,7 +1,5 @@
 {% extends 'base.html' %} {% block content %}
 <br />
-{% include "menu.html" %}
-<br />
 <div class="main-user">
     <div class="two-column">
         <h2>Name: {{ selected_user.first_name }}</h2>
@@ -12,9 +10,9 @@
         <h3>Favorite Brew Types: List Types of Brew</h3>
         {% if request.user != selected_user %}
         {% if selected_user not in following_list %}
-        <a href="/following/{{selected_user.id}}/" class="btn btn-primary">Follow</a>
+        <a href="/following/{{selected_user.id}}/" class="btn button-menu">Follow</a>
         {% else %}
-        <a href="/unfollowing/{{selected_user.id}}/" class="btn btn-primary">Unfollow</a>
+        <a href="/unfollowing/{{selected_user.id}}/" class="btn button-menu">Unfollow</a>
         {% endif %}
         {% endif %}
     </div>
@@ -23,8 +21,8 @@
         {% for post in user_posts %}
         <h3>
         <span class="small"
-            ><a href="/user/{{ post.author.id }}/">{{ post.author }}</a> -
-            <a href="/post/{{ post.id }}/">{{post.postTime}}</a></span
+            ><a  class="custom_link" href="/user/{{ post.author.id }}/">{{ post.author }}</a> -
+            <a  class="custom_link" href="/post/{{ post.id }}/">{{post.postTime}}</a></span
         ><span class="small"
             > - Updated: {{ post.lastUpdated }}</a></span><br />
         {{ post.body }}
@@ -32,5 +30,6 @@
         {% endfor %}
     </div>
 </div>
-
+<br />
+<br />
 {% endblock %}

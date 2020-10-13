@@ -1,6 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-<br />
-{% include "menu.html" %}
+
 <br />
 
 {% if request.user.is_authenticated %}
@@ -14,9 +13,13 @@
 <h2>Suggested Friends: {{follow_count}}</h2>
 
 <h2>Friends Post: {{follow_count}}</h2>
-
+<br />
+<br />
 {% elif request.user.is_anonymous %}
 <h2>
-  Welcome, please <a href="/login/">login</a> or <a href="/signup/">signup.</a>
+  Welcome, please <a class="custom_link" href="/login/">login</a> or
+  <a class="custom_link" href="/signup/">signup.</a>
 </h2>
+<br />
+<br />
 {% endif %} {% endblock %}
