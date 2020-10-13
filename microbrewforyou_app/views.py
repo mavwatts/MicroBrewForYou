@@ -136,10 +136,10 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("homepage"))
 
-# def brewtypes_view(request):
-#     logout(request)
-#     return HttpResponseRedirect(reverse("brewtypesview"))
 
+def brewtypes_view(request):
+    return render(request, "brew_type_list.html")
+    
 
 class AddPostView(View):
     def get(self, request):

@@ -88,5 +88,31 @@ div.quote {
   align-items: center;
   padding: 1.5em;
   display: flex;
+}
 
+.brew_type_list_title_centering {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.brew_type_list_spacing {
+  align-items: center;
+  display: flex;
+}
+
+/* .brew_type_list_spacing_longer_content {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+} */
+
+.brew_type_list_paragraph_centering {
+  justify-content: center;
+  align-items: center;
+  display: block;
+  width: 40em;
+  height: 258px;
+  padding-left: 1em;
 }
