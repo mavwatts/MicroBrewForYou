@@ -32,7 +32,8 @@ urlpatterns = [
     path('editpost/<int:post_id>/', edit_post_view, name="edit_postview"),
     path('addpost/', AddPostView.as_view(), name="addpostview"),
     path('user/<int:user_id>/', UserDetailView.as_view(), name="userview"),
-    path('edituser/<int:user_id>/', edit_user_view, name="edit_userview"),
+    path('edituser/<int:user_id>/',
+         edit_user_view, name="edit_userview"),
     path('login/', login_view, name="loginview"),
     path('signup/', signup_view, name="signupview"),
     path('logout/', logout_view, name="logoutview"),
@@ -44,6 +45,7 @@ urlpatterns = [
          UnfollowingView.as_view(), name="unfollowing"),
     path('following/<int:follow_id>/',
          FollowingView.as_view(), name="following"),
-    path('brewery/<int:brewery_id>/', BreweryDetailView.as_view(), name="brewery_detail"),
+    path('brewery/<int:brewery_id>/',
+         BreweryDetailView.as_view(), name="brewery_detail"),
     path('admin/', admin.site.urls),
 ]
