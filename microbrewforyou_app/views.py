@@ -233,6 +233,24 @@ class UnfollowingView(View):
             "userview", args=[remove_user.id]))
 
 
+class FavoriteBreweryView(View):
+    def get(self, request, brewery_id):
+        brewery = Breweries.objects.filter(id=brewery_id).first())
+        request.user.fav_breweries.add(brewery)
+        request.user.save()
+        return HttpResponseRedirect(reverse(
+            "brewery_detail", args=[brewery.id]))
+
+
+class UnfavoriteBreweryView(View):
+    def get(self, request, brewery_id):
+        brewery = Breweries.objects.filter(id=brewery_id).first()
+        request.user.fav_breweries.remove(brewery)
+        request.user.save()
+        return HttpResponseRedirect(reverse(
+            "brewery_detail", args=[brewery.id]))
+
+
 class UserDetailView(View):
     def get(self, request, user_id):
         selected_user = CustomUser.objects.filter(id=user_id).first()
