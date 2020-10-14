@@ -250,6 +250,12 @@ class UserDetailView(View):
         )
 
 
+class BreweryDetailView(View):
+    def get(self, request, brewery_id):
+        brewery = Breweries.objects.filter(id=brewery_id).first()
+        return render(request, "brewery_detail.html", {"brewery": brewery})
+
+
 class FavoriteBreweriesView(View):
     def get(self, request, favorite_id):
         breweriesname = Breweries.objects.get(id=favorite_id)
