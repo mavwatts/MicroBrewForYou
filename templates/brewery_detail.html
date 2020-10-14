@@ -4,8 +4,8 @@
 <br/>
 <div class="brewery">
   <div class="two-column">
-    <a href="{% url 'following' follow_id=brewery.id %}">Follow</a>
-    <a href="{% url 'unfollowing' unfollow_id=brewery.id %}">Unfollow</a>
+    <a href="{% url 'favortie_brewery' brewery_id=brewery.id %}">Follow</a>
+    <a href="{% url 'unfavorite_brewery' brewery_id=brewery.id %}">Unfollow</a>
     <h2>{{ brewery.name }}</h2>
     <h3>{{ brewery.address }}</h3>
     <h3>{{ brewery.city }}</h3>
