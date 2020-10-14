@@ -1,11 +1,9 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<br/>
+{% extends 'base.html' %} {% block content %}
+<br />
 <div class="brewery">
   <div class="two-column">
-    <a href="{% url 'favortie_brewery' brewery_id=brewery.id %}">Follow</a>
-    <a href="{% url 'unfavorite_brewery' brewery_id=brewery.id %}">Unfollow</a>
+    <a href="{% url 'follow_brewery' brewery_id=brewery.id %}">Follow</a>
+    <a href="{% url 'unfollow_brewery' brewery_id=brewery.id %}">Unfollow</a>
     <h2>{{ brewery.name }}</h2>
     <h3>{{ brewery.address }}</h3>
     <h3>{{ brewery.city }}</h3>
