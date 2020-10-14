@@ -235,7 +235,7 @@ class UnfollowingView(View):
 
 class FavoriteBreweryView(View):
     def get(self, request, brewery_id):
-        brewery = Breweries.objects.filter(id=brewery_id).first())
+        brewery = Breweries.objects.filter(id=brewery_id).first()
         request.user.fav_breweries.add(brewery)
         request.user.save()
         return HttpResponseRedirect(reverse(

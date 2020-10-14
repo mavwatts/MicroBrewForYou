@@ -19,7 +19,8 @@ from microbrewforyou_app.views import login_view, logout_view,\
     signup_view, AddPostView, post_detail_view, IndexView,\
     UserDetailView, FavoriteBrewTypesView, FavoriteBreweriesView,\
     edit_post_view, FollowingView, UnfollowingView, edit_user_view,\
-    BreweriesReloadView, NearbyBreweriesView, BreweryDetailView, FollowBreweryView, UnfollowBreweryView
+    BreweriesReloadView, NearbyBreweriesView, BreweryDetailView,\
+    FavoriteBreweryView, UnfavoriteBreweryView
 
 
 urlpatterns = [
@@ -47,7 +48,9 @@ urlpatterns = [
          FollowingView.as_view(), name="following"),
     path('brewery/<int:brewery_id>/',
          BreweryDetailView.as_view(), name="brewery_detail"),
-    path('favorite_brewery/<int:brewery_id>/', FollowBreweryView.as_view(), name="follow_brewery"),
-    path('unfavorite_brewery/<int:brewery_id>/', UnfollowBreweryView.as_view(), name="unfollow_brewery"),
+    path('favorite_brewery/<int:brewery_id>/',
+         FavoriteBreweryView.as_view(), name="follow_brewery"),
+    path('unfavorite_brewery/<int:brewery_id>/',
+         UnfavoriteBreweryView.as_view(), name="unfollow_brewery"),
     path('admin/', admin.site.urls),
 ]
