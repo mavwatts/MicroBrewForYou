@@ -8,6 +8,16 @@
   <a href="/edituser/{{request.user.id}}/" class="btn button-menu">Edit User</a>
 </h1>
 <br />
+{% if request.user.user_image %}
+<h2>
+  <img
+    src="media/{{ request.user.user_image }}"
+    class="user_profile_image"
+    alt="Profile Image"
+    style="width: 300px; border: 2px solid white"
+  />
+</h2>
+{% endif %}
 <h2>Bio: {{request.user.bio}}</h2>
 <h2>Following Count: {{follow_count}}</h2>
 

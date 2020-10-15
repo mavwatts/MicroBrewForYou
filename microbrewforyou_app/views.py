@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.shortcuts import render, HttpResponseRedirect, reverse, HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.views.generic.base import View
 from microbrewforyou_app.models import CustomUser, Posts, BrewTypes, Breweries
@@ -85,7 +85,7 @@ def login_view(request):
 
 def signup_view(request):
     if request.method == "POST":
-        form = SignupForm(request.POST)
+        form = SignupForm(request.POST, request.FILES)
         if form.is_valid():
             data = form.cleaned_data
             new_user = CustomUser.objects.create_user(
@@ -105,6 +105,10 @@ def signup_view(request):
     return render(request, "sign_up.html", {"form": form,
                                             'words_author': words_author,
                                             "words_quote": words_quote})
+
+
+def success(request):
+    return HttpResponse('successfully uploaded')
 
 
 def edit_user_view(request, user_id):

@@ -20,7 +20,10 @@ from microbrewforyou_app.views import login_view, logout_view,\
     UserDetailView, FavoriteBrewTypesView, FavoriteBreweriesView,\
     edit_post_view, FollowingView, UnfollowingView, edit_user_view,\
     BreweriesReloadView, NearbyBreweriesView, BreweryDetailView,\
-    FavoriteBreweryView, UnfavoriteBreweryView
+    FavoriteBreweryView, UnfavoriteBreweryView, success
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -52,9 +55,13 @@ urlpatterns = [
          FavoriteBreweryView.as_view(), name="follow_brewery"),
     path('unfavorite_brewery/<int:brewery_id>/',
          UnfavoriteBreweryView.as_view(), name="unfollow_brewery"),
+    path('success', success, name='success'),
     path('admin/', admin.site.urls),
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
 
 handler404 = 'microbrewforyou_app.views.error404view'
 
