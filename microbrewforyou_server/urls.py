@@ -57,3 +57,7 @@ urlpatterns = [
 
 
 handler404 = 'microbrewforyou_app.views.error404view'
+
+handler403 = 'microbrewforyou_app.views.error403view'
+
+handler500 = 'microbrewforyou_app.views.error500view'
