@@ -58,7 +58,9 @@ class IndexView(View):
             follow_count = 0
         else:
             follow_count = len(request.user.users_following.all())
-        return render(request, 'index.html', {'follow_count': follow_count, 'words_author': words_author, "words_quote": words_quote})
+        return render(request, 'index.html', {'follow_count': follow_count,
+                                              'words_author': words_author,
+                                              "words_quote": words_quote})
 
 
 def login_view(request):
@@ -75,7 +77,9 @@ def login_view(request):
     form = LoginForm()
     words_quote = "He was a wise man who invented beer."
     words_author = "Plato"
-    return render(request, "login.html", {"form": form, 'words_author': words_author, "words_quote": words_quote})
+    return render(request, "login.html", {"form": form,
+                                          'words_author': words_author,
+                                          "words_quote": words_quote})
 
 
 def signup_view(request):
@@ -97,7 +101,9 @@ def signup_view(request):
     form = SignupForm()
     words_quote = "Beer, it’s the best damn drink in the world."
     words_author = "Jack Nicholson"
-    return render(request, "sign_up.html", {"form": form, 'words_author': words_author, "words_quote": words_quote})
+    return render(request, "sign_up.html", {"form": form,
+                                            'words_author': words_author,
+                                            "words_quote": words_quote})
 
 
 def edit_user_view(request, user_id):
@@ -126,7 +132,10 @@ def edit_user_view(request, user_id):
         words_quote = "A man who lies about beer makes enemies."
         words_author = "Stephen King"
         return render(request, "edit_user.html",
-                      {"form": user_form, "profile_user": request.user, 'words_author': words_author, "words_quote": words_quote})
+                      {"form": user_form,
+                       "profile_user": request.user,
+                       'words_author': words_author,
+                       "words_quote": words_quote})
     else:
         return HttpResponseRedirect(reverse(
             "edit_userview", args=[edit_user.id]))
@@ -163,7 +172,9 @@ class AddPostView(View):
             return HttpResponseRedirect(
                 reverse("postview", args=[new_post.id])
             )
-        words_quote = "Beer is proof that God loves us and wants us to be happy."
+        words_quote = (
+            "Beer is proof that God loves us and wants us to be happy."
+        )
         words_author = "Benjamin Franklin"
         return render(
             request, "add_post.html",
@@ -199,7 +210,8 @@ def edit_post_view(request, post_id):
         words_author = "Plato"
         return render(request, "edit_post.html",
                       {"form": post_form, "profile_user": request.user,
-                       'words_author': words_author, "words_quote": words_quote}
+                       'words_author': words_author,
+                       "words_quote": words_quote}
                       )
     else:
         return HttpResponseRedirect(reverse(
@@ -223,6 +235,24 @@ class UnfollowingView(View):
         logged_in_user.save()
         return HttpResponseRedirect(reverse(
             "userview", args=[remove_user.id]))
+
+
+class FavoriteBreweryView(View):
+    def get(self, request, brewery_id):
+        brewery = Breweries.objects.filter(id=brewery_id).first()
+        request.user.fav_breweries.add(brewery)
+        request.user.save()
+        return HttpResponseRedirect(reverse(
+            "brewery_detail", args=[brewery.id]))
+
+
+class UnfavoriteBreweryView(View):
+    def get(self, request, brewery_id):
+        brewery = Breweries.objects.filter(id=brewery_id).first()
+        request.user.fav_breweries.remove(brewery)
+        request.user.save()
+        return HttpResponseRedirect(reverse(
+            "brewery_detail", args=[brewery.id]))
 
 
 class UserDetailView(View):
@@ -252,8 +282,15 @@ class UserDetailView(View):
 
 class BreweryDetailView(View):
     def get(self, request, brewery_id):
+        words_quote = "He was a wise man who invented beer."
+        words_author = "Plato"
         brewery = Breweries.objects.filter(id=brewery_id).first()
-        return render(request, "brewery_detail.html", {"brewery": brewery})
+        return render(request,
+                      "brewery_detail.html",
+                      {"brewery": brewery,
+                       'words_author': words_author,
+                       "words_quote": words_quote}
+                      )
 
 
 class FavoriteBreweriesView(View):

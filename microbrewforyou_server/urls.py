@@ -19,7 +19,13 @@ from microbrewforyou_app.views import login_view, logout_view,\
     signup_view, AddPostView, post_detail_view, IndexView,\
     UserDetailView, FavoriteBrewTypesView, FavoriteBreweriesView,\
     edit_post_view, FollowingView, UnfollowingView, edit_user_view,\
+<<<<<<< HEAD
     BreweriesReloadView, NearbyBreweriesView, BreweryDetailView, brewtypes_view
+=======
+    BreweriesReloadView, NearbyBreweriesView, BreweryDetailView,\
+    FavoriteBreweryView, UnfavoriteBreweryView
+
+>>>>>>> master
 
 urlpatterns = [
     path('', IndexView.as_view(), name="homepage"),
@@ -31,7 +37,8 @@ urlpatterns = [
     path('editpost/<int:post_id>/', edit_post_view, name="edit_postview"),
     path('addpost/', AddPostView.as_view(), name="addpostview"),
     path('user/<int:user_id>/', UserDetailView.as_view(), name="userview"),
-    path('edituser/<int:user_id>/', edit_user_view, name="edit_userview"),
+    path('edituser/<int:user_id>/',
+         edit_user_view, name="edit_userview"),
     path('login/', login_view, name="loginview"),
     path('signup/', signup_view, name="signupview"),
     path('logout/', logout_view, name="logoutview"),
@@ -44,6 +51,11 @@ urlpatterns = [
          UnfollowingView.as_view(), name="unfollowing"),
     path('following/<int:follow_id>/',
          FollowingView.as_view(), name="following"),
-    path('brewery/<int:brewery_id>/', BreweryDetailView.as_view(), name="brewery_detail"),
+    path('brewery/<int:brewery_id>/',
+         BreweryDetailView.as_view(), name="brewery_detail"),
+    path('favorite_brewery/<int:brewery_id>/',
+         FavoriteBreweryView.as_view(), name="follow_brewery"),
+    path('unfavorite_brewery/<int:brewery_id>/',
+         UnfavoriteBreweryView.as_view(), name="unfollow_brewery"),
     path('admin/', admin.site.urls),
 ]
