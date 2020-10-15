@@ -47,6 +47,7 @@ class BreweriesReloadView(View):
             print('Model Brewery list count end: ',
                   len(current_breweries_in_model))
             return render(request, 'index.html')
+
         return render(request, 'index.html')
 
 
@@ -314,3 +315,15 @@ class FavoriteBrewTypesView(View):
         logged_in_user.fav_brewtypes.add(brewtypename)
         logged_in_user.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def error404view(request, exception):
+    return render(request, '404.html')
+
+
+def error403view(request, exception):
+    return render(request, '403.html')
+
+
+def error500view(request):
+    return render(request, '500.html')
