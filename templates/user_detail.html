@@ -8,6 +8,7 @@
         <h3>Following Users: {{ number_following }}</h3>
         <h3>Following Breweries: 0</h3>
         <h3>Favorite Brew Types: List Types of Brew</h3>
+
         {% if request.user != selected_user %}
         {% if selected_user not in following_list %}
         <a href="/following/{{selected_user.id}}/" class="btn button-menu">Follow</a>

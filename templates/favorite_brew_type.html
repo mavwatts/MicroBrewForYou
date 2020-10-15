@@ -1,5 +1,7 @@
 <h1>Favorite Brew Types:</h1>
+<a href="brewtypes/" class="btn button-menu">Favorites</a>
 {% for fav in request.user.fav_brewtypes.all %}
+
 <li>
   {{fav.name}}  
 </li>

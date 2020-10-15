@@ -19,8 +19,7 @@ from microbrewforyou_app.views import login_view, logout_view,\
     signup_view, AddPostView, post_detail_view, IndexView,\
     UserDetailView, FavoriteBrewTypesView, FavoriteBreweriesView,\
     edit_post_view, FollowingView, UnfollowingView, edit_user_view,\
-    BreweriesReloadView, NearbyBreweriesView, BreweryDetailView
-
+    BreweriesReloadView, NearbyBreweriesView, BreweryDetailView, brewtypes_view
 
 urlpatterns = [
     path('', IndexView.as_view(), name="homepage"),
