@@ -51,6 +51,7 @@ class Breweries(models.Model):
 class BrewTypes(models.Model):
     name = models.CharField(max_length=80)
     averageABV = models.FloatField()
+    
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.id}"

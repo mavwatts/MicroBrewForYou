@@ -311,10 +311,26 @@ class NearbyBreweriesView(View):
             {"brewery_list_by_city": brewery_list_by_city})
 
 
-class FavoriteBrewTypesView(View):
-    def get(self, request, favorite_id):
-        brewtypename = BrewTypes.objects.get(id=favorite_id)
-        logged_in_user = request.user
-        logged_in_user.fav_brewtypes.add(brewtypename)
-        logged_in_user.save()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+# class FavoriteBrewTypesView(View):
+#     def get(self, request, favorite_id):
+#         brewtypename = BrewTypes.objects.get(id=favorite_id)
+#         logged_in_user = request.user
+#         logged_in_user.fav_brewtypes.add(brewtypename)
+#         logged_in_user.save()
+#         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+class FollowingBrewTypesView(View):
+    def get(self, request, follow_brew_type_id):
+        request.user.fav_brewtypes.add(follow_brew_type_id)
+        request.user.save()
+        return HttpResponseRedirect(reverse(
+            "homepage"))
+
+
+class UnFollowingBrewTypesView(View):
+    def get(self, request, unfollow_brew_type_id):
+        request.user.fav_brewtypes.remove(unfollow_brew_type_id)
+        request.user.save()
+        return HttpResponseRedirect(reverse(
+            "homepage"))

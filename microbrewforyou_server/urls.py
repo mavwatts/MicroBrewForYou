@@ -17,15 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from microbrewforyou_app.views import login_view, logout_view,\
     signup_view, AddPostView, post_detail_view, IndexView,\
-    UserDetailView, FavoriteBrewTypesView, FavoriteBreweriesView,\
-    edit_post_view, FollowingView, UnfollowingView, edit_user_view,\
-<<<<<<< HEAD
-    BreweriesReloadView, NearbyBreweriesView, BreweryDetailView, brewtypes_view
-=======
+    UserDetailView, edit_post_view, FollowingView, UnfollowingView, \
     BreweriesReloadView, NearbyBreweriesView, BreweryDetailView,\
-    FavoriteBreweryView, UnfavoriteBreweryView
+    FavoriteBreweryView, UnfavoriteBreweryView, brewtypes_view,\
+    FollowingBrewTypesView, UnFollowingBrewTypesView, edit_user_view
 
->>>>>>> master
 
 urlpatterns = [
     path('', IndexView.as_view(), name="homepage"),
@@ -42,11 +38,13 @@ urlpatterns = [
     path('login/', login_view, name="loginview"),
     path('signup/', signup_view, name="signupview"),
     path('logout/', logout_view, name="logoutview"),
+    path('followingbrewtypes/<int:follow_brew_type_id>/', FollowingBrewTypesView.as_view(), name='FollowingBrewTypesView'),
+    path('unfollowingbrewtypes/<int:unfollow_brew_type_id>/', UnFollowingBrewTypesView.as_view(), name='UnFollowingBrewTypesView'),
     path('brewtypes/', brewtypes_view, name="brewtypesview"),
-    path('fav_brewtypes/<int:favorite_id>/',
-         FavoriteBrewTypesView.as_view(), name="favoritebrewtypes"),
-    path('fav_breweries/<int:favorite_id>/',
-         FavoriteBreweriesView.as_view(), name="favoritebreweries"),
+    # path('fav_brewtypes/<int:favorite_id>/',
+    #      FavoriteBrewTypesView.as_view(), name="favoritebrewtypes"),
+    # path('fav_breweries/<int:favorite_id>/',
+    #      FavoriteBreweriesView.as_view(), name="favoritebreweries"),
     path('unfollowing/<int:unfollow_id>/',
          UnfollowingView.as_view(), name="unfollowing"),
     path('following/<int:follow_id>/',
