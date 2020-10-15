@@ -7,4 +7,3 @@ admin.site.register(CustomUser, UserAdmin)
 admin.site.register(Posts)
 admin.site.register(Breweries)
 admin.site.register(BrewTypes)
-
