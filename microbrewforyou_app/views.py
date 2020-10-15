@@ -314,3 +314,7 @@ class FavoriteBrewTypesView(View):
         logged_in_user.fav_brewtypes.add(brewtypename)
         logged_in_user.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def error404view(request, exception):
+    return render(request, '404.html')

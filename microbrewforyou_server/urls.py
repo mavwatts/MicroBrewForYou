@@ -54,3 +54,6 @@ urlpatterns = [
          UnfavoriteBreweryView.as_view(), name="unfollow_brewery"),
     path('admin/', admin.site.urls),
 ]
+
+
+handler404 = 'microbrewforyou_app.views.error404view'
