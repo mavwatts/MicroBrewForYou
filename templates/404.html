@@ -1,10 +1,29 @@
-<div class="error-template">
-  <h1 class="display-4">404 Error</h1>
-  <p class="lead">
-    Too many beers! The page you are looking for does not exist.
-  </p>
-  <hr class="my-4" />
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="#" role="button">Go Home</a>
-  </p>
-</div>
+{% load static %}
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="error-template">
+      <h1 class="display-4">404 Error</h1>
+      <p class="lead">
+        Too many beers! The page you are looking for does not exist.
+      </p>
+      <hr class="my-4" />
+      <p class="lead">
+        <a
+          class="btn button-menu btn-lg"
+          href="{% url 'homepage' %}"
+          role="button"
+          >Go Home</a
+        >
+      </p>
+    </div>
+  </body>
+</html>

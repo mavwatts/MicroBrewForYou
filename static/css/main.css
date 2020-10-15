@@ -72,3 +72,10 @@ div.quote {
   margin-left: 12px;
   float: left;
 }
+
+.error-template {
+  margin: 100px;
+  background-color: black;
+  color: white;
+  padding: 50px;
+}
