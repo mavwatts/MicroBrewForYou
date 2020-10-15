@@ -115,12 +115,13 @@ def edit_user_view(request, user_id):
     edit_user = CustomUser.objects.filter(id=user_id).first()
     if edit_user == request.user:
         if request.method == "POST":
-            user_form = EditUserForm(request.POST)
+            user_form = EditUserForm(request.POST, request.FILES)
             if user_form.is_valid():
                 data = user_form.cleaned_data
                 edit_user.username = data.get('username')
                 edit_user.password = edit_user.password
                 edit_user.first_name = data.get('first_name')
+                edit_user.user_image = data.get('user_image')
                 edit_user.bio = data.get('bio')
                 edit_user.address = data.get('address')
                 edit_user.city = data.get('city')
@@ -130,6 +131,7 @@ def edit_user_view(request, user_id):
             return HttpResponseRedirect(reverse("homepage"))
         user_form = EditUserForm(initial={'username': edit_user.username,
                                           'first_name': edit_user.first_name,
+                                          'user_image': edit_user.user_image,
                                           'bio': edit_user.bio,
                                           'address': edit_user.address,
                                           'city': edit_user.city,
