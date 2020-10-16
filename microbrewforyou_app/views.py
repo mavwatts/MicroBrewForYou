@@ -19,7 +19,7 @@ class BreweriesReloadView(View):
             print('Api brewery master list count: ', len(full_breweries_list))
             print('Model Brewery list count start: ',
                   len(current_breweries_in_model))
-
+            full_match = False
             for item in full_breweries_list:
                 list_item_name = item['name']
                 list_item_city = item['city']
