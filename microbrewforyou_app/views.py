@@ -116,6 +116,8 @@ def edit_user_view(request, user_id):
     if edit_user == request.user:
         if request.method == "POST":
             user_form = EditUserForm(request.POST, request.FILES)
+            print(user_form.errors)
+            # breakpoint()
             if user_form.is_valid():
                 data = user_form.cleaned_data
                 edit_user.username = data.get('username')
