@@ -15,12 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+if settings.DEBUG:
+        urlpatterns = static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)
 from microbrewforyou_app.views import login_view, logout_view,\
     signup_view, AddPostView, post_detail_view, IndexView,\
     UserDetailView, edit_post_view, FollowingView, UnfollowingView, \
     BreweriesReloadView, NearbyBreweriesView, BreweryDetailView,\
     FavoriteBreweryView, UnfavoriteBreweryView, brewtypes_view,\
-    FollowingBrewTypesView, UnFollowingBrewTypesView, edit_user_view
+    FollowingBrewTypesView, UnFollowingBrewTypesView, edit_user_view, pic_form_view, success
+
 
 
 urlpatterns = [
@@ -41,6 +47,8 @@ urlpatterns = [
     path('followingbrewtypes/<int:follow_brew_type_id>/', FollowingBrewTypesView.as_view(), name='FollowingBrewTypesView'),
     path('unfollowingbrewtypes/<int:unfollow_brew_type_id>/', UnFollowingBrewTypesView.as_view(), name='UnFollowingBrewTypesView'),
     path('brewtypes/', brewtypes_view, name="brewtypesview"),
+    path('image_upload', pic_form_view, name='image_upload'),
+    path('success', success, name='success'),
     # path('fav_brewtypes/<int:favorite_id>/',
     #      FavoriteBrewTypesView.as_view(), name="favoritebrewtypes"),
     # path('fav_breweries/<int:favorite_id>/',
@@ -57,3 +65,4 @@ urlpatterns = [
          UnfavoriteBreweryView.as_view(), name="unfollow_brewery"),
     path('admin/', admin.site.urls),
 ]
+

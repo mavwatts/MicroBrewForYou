@@ -2,7 +2,10 @@
 <a href="brewtypes/" class="btn button-menu">Favorites</a>
 {% for fav in request.user.fav_brewtypes.all %}
 
-<li>
+<p>
   {{fav.name}}  
-</li>
+  <br>
+  <img src="{{fav.img_upload}}" style="width: 100px">
+</p>
+
 {% endfor %}

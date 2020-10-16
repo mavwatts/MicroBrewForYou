@@ -1,4 +1,5 @@
-from django import forms
+from django import forms 
+from microbrewforyou_app.models import BrewTypes
 
 
 class LoginForm(forms.Form):
@@ -27,3 +28,10 @@ class EditUserForm(forms.Form):
 
 class PostForm(forms.Form):
     body = forms.CharField(widget=forms.Textarea)
+
+
+class PicForm(forms.ModelForm):
+
+    class Meta:
+        model = BrewTypes
+        fields = ['name', 'averageABV', 'img_upload']
