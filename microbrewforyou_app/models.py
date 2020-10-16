@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     bio = models.CharField(max_length=280, default='')
     user_image = models.ImageField(
-        upload_to='images/', blank=True)
+        upload_to='images/', null=True, blank=True)
     users_following = models.ManyToManyField(
         "self", symmetrical=False, related_name='CustomUser')
     fav_breweries = models.ManyToManyField(
