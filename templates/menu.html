@@ -3,18 +3,10 @@
   <a href="/" class="btn button-menu">Home</a>
   &nbsp;
   <a href="/login/" class="btn button-menu">Login</a>
-
-  {% if request.user.is_authenticated %} &nbsp;<a
-    href="/logout/"
-    class="btn button-menu"
-    >Logout</a
-  >{% endif %} {% if not request.user.is_authenticated %}&nbsp;<a
-    href="/signup/"
-    class="btn button-menu"
-    >Signup</a
-  >{% endif %} {% if request.user.is_authenticated %}&nbsp;<a
-    href="/addpost/"
-    class="btn button-menu"
-    >Add Post</a
-  >{% endif %}
+  &nbsp; {% if request.user.is_authenticated %}
+  <a href="/logout/" class="btn button-menu">Logout</a>
+  {% endif %} {% if not request.user.is_authenticated %}
+  <a href="/signup/" class="btn button-menu">Signup</a>
+  &nbsp; {% endif %} {% if request.user.is_authenticated %}
+  <a href="/addpost/" class="btn button-menu">Add Post</a>{% endif %}
 </div>

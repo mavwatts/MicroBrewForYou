@@ -2,7 +2,7 @@
 <br />
 <h2>Please edit your user info below.</h2>
 <br />
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %} {{ form.as_p }}
   <input class="btn button-menu" type="submit" value="Submit!" />
 </form>
