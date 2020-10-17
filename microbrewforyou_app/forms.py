@@ -1,5 +1,5 @@
 from django import forms
-from microbrewforyou_app.models import CustomUser, BrewTypes, Breweries
+from microbrewforyou_app.models import CustomUser, BrewTypes
 
 
 class LoginForm(forms.Form):
