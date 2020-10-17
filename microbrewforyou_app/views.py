@@ -117,8 +117,12 @@ def edit_user_view(request, user_id):
     if edit_user == request.user:
         if request.method == "POST":
             user_form = EditUserForm(request.POST, request.FILES)
-            # print(user_form.errors)
-            # breakpoint()
+            if len(request.FILES) == 0:
+                updated_request_files = request.FILES.copy()
+                updated_request_files.update(
+                    {'user_image': edit_user.user_image}
+                )
+                user_form = EditUserForm(request.POST, updated_request_files)
             if user_form.is_valid():
                 data = user_form.cleaned_data
                 edit_user.username = data.get('username')
