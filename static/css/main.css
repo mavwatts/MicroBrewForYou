@@ -128,3 +128,28 @@ div.quote {
 input[type="file"] {
   color: white;
 }
+
+div.profile-main-container-top {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row;
+}
+
+div.profile-main-container-middle {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row;
+}
+
+div.profile-main-container-bottom {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row;
+}
+
+div.profile-box {
+  background-color: darkgray;
+  border: 2px solid white;
+  padding: 25px;
+  margin: 10px;
+}
