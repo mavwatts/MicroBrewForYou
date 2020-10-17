@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse, HttpResponse
+from django.shortcuts import render, HttpResponseRedirect,\
+    reverse, HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.views.generic.base import View
 from microbrewforyou_app.models import CustomUser, Posts, BrewTypes, Breweries
@@ -46,9 +47,9 @@ class BreweriesReloadView(View):
             current_breweries_in_model = Breweries.objects.all()
             print('Model Brewery list count end: ',
                   len(current_breweries_in_model))
-            return render(request, 'index.html')
+            return HttpResponseRedirect(reverse("homepage"))
 
-        return render(request, 'index.html')
+        return HttpResponseRedirect(reverse("homepage"))
 
 
 class IndexView(View):
@@ -116,7 +117,7 @@ def edit_user_view(request, user_id):
     if edit_user == request.user:
         if request.method == "POST":
             user_form = EditUserForm(request.POST, request.FILES)
-            print(user_form.errors)
+            # print(user_form.errors)
             # breakpoint()
             if user_form.is_valid():
                 data = user_form.cleaned_data
@@ -128,6 +129,7 @@ def edit_user_view(request, user_id):
                 edit_user.address = data.get('address')
                 edit_user.city = data.get('city')
                 edit_user.state = data.get('state')
+                # breakpoint()
                 edit_user.save()
                 login(request, edit_user)
             return HttpResponseRedirect(reverse("homepage"))
