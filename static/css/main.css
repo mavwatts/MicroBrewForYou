@@ -42,6 +42,15 @@ a.custom_link {
 }
 a.custom_link:hover {
   color: #e0e1e5;
+  text-decoration: none;
+}
+
+a.custom_link_white {
+  color: #ffffff;
+}
+a.custom_link_white:hover {
+  color: #e0e1e5;
+  text-decoration: none;
 }
 
 img.logo_mbfy {
@@ -65,9 +74,8 @@ div.footer {
   color: #e0e1e5;
   padding: 20px;
   padding-left: 30px;
-  justify-content: center;
-  align-items: center;
   display: flex;
+  justify-content: space-between;
 }
 
 div.quote {
@@ -115,4 +123,8 @@ div.quote {
   width: 40em;
   height: 258px;
   padding-left: 1em;
+}
+
+input[type="file"] {
+  color: white;
 }
