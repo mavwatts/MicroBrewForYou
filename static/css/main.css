@@ -65,6 +65,9 @@ div.footer {
   color: #e0e1e5;
   padding: 20px;
   padding-left: 30px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 div.quote {
@@ -73,13 +76,43 @@ div.quote {
   float: left;
 }
 
-.error-template {
-  margin: 100px;
-  background-color: black;
-  color: white;
-  padding: 50px;
+.submit_wrapper {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 1.5em;
 }
-input[type="file"] {
+
+#login_signup_spacing {
+  justify-content: center;
+  align-items: center;
+  padding: 1.5em;
+  display: flex;
+}
+
+.brew_type_list_title_centering {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.brew_type_list_spacing {
+  align-items: center;
+  display: flex;
+}
+
+/* .brew_type_list_spacing_longer_content {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+} */
+
+.brew_type_list_paragraph_centering {
+  justify-content: center;
+  align-items: center;
   display: block;
-  color: white;
+  width: 40em;
+  height: 258px;
+  padding-left: 1em;
 }
