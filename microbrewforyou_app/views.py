@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse, HttpResponse
+from django.shortcuts import render, HttpResponseRedirect,\
+    reverse, HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.views.generic.base import View
 from microbrewforyou_app.models import CustomUser, Posts, BrewTypes, Breweries
@@ -19,7 +20,7 @@ class BreweriesReloadView(View):
             print('Api brewery master list count: ', len(full_breweries_list))
             print('Model Brewery list count start: ',
                   len(current_breweries_in_model))
-
+            full_match = False
             for item in full_breweries_list:
                 list_item_name = item['name']
                 list_item_city = item['city']
@@ -46,9 +47,9 @@ class BreweriesReloadView(View):
             current_breweries_in_model = Breweries.objects.all()
             print('Model Brewery list count end: ',
                   len(current_breweries_in_model))
-            return render(request, 'index.html')
+            return HttpResponseRedirect(reverse("homepage"))
 
-        return render(request, 'index.html')
+        return HttpResponseRedirect(reverse("homepage"))
 
 
 class IndexView(View):
