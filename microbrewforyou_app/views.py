@@ -1,11 +1,13 @@
-from django.shortcuts import render, HttpResponseRedirect,\
-    reverse, HttpResponse
+from django.shortcuts import render, HttpResponseRedirect, reverse, redirect\
+    # , HttpResponse
 from django.contrib.auth import login, logout, authenticate
+from django.http import HttpResponse
 from django.views.generic.base import View
 from microbrewforyou_app.models import CustomUser, Posts, BrewTypes, Breweries
 from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm,\
-    EditUserForm
+    EditUserForm, PicForm
 
+# from django.templatetags.static import static  # might cause problem
 import requests
 
 
@@ -322,13 +324,50 @@ class NearbyBreweriesView(View):
             {"brewery_list_by_city": brewery_list_by_city})
 
 
-class FavoriteBrewTypesView(View):
-    def get(self, request, favorite_id):
-        brewtypename = BrewTypes.objects.get(id=favorite_id)
-        logged_in_user = request.user
-        logged_in_user.fav_brewtypes.add(brewtypename)
-        logged_in_user.save()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+# class FavoriteBrewTypesView(View):
+#     def get(self, request, favorite_id):
+#         brewtypename = BrewTypes.objects.get(id=favorite_id)
+#         logged_in_user = request.user
+#         logged_in_user.fav_brewtypes.add(brewtypename)
+#         logged_in_user.save()
+#         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+class FollowingBrewTypesView(View):
+    def get(self, request, follow_brew_type_id):
+        request.user.fav_brewtypes.add(follow_brew_type_id)
+        brewtype = BrewTypes.objects.filter(id=follow_brew_type_id).first()
+        brewtype_image = static(f'images/{follow_brew_type_id}.JPG')
+        brewtype.img_upload = brewtype_image
+        brewtype.save()
+        request.user.save()
+        return HttpResponseRedirect(reverse(
+            "homepage"))
+
+
+class UnFollowingBrewTypesView(View):
+    def get(self, request, unfollow_brew_type_id):
+        request.user.fav_brewtypes.remove(unfollow_brew_type_id)
+        request.user.save()
+        return HttpResponseRedirect(reverse(
+            "homepage"))
+
+
+def pic_form_view(request, brew_type_id):
+    edit_brew_type = BrewTypes.objects.filter(id=brew_type_id).first()
+
+    if request.method == 'POST':
+        form = PicForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            data = form.cleaned_data
+            edit_brew_type.img_upload = data.get(img_upload)
+            form.save()
+            return redirect('success')
+    else:
+        form = PicForm()
+    breakpoint()
+    return render(request, 'favorite_brew_type.html', {'form': form})
 
 
 def error404view(request, exception):

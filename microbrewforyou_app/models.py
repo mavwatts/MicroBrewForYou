@@ -51,6 +51,7 @@ class Breweries(models.Model):
 class BrewTypes(models.Model):
     name = models.CharField(max_length=80)
     averageABV = models.FloatField()
+    img_upload = models.ImageField(upload_to='images/', blank=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.id} - {self.img_upload}"

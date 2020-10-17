@@ -14,15 +14,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from microbrewforyou_app.views import login_view, logout_view,\
-    signup_view, AddPostView, post_detail_view, IndexView,\
-    UserDetailView, FavoriteBrewTypesView, FavoriteBreweriesView,\
-    edit_post_view, FollowingView, UnfollowingView, edit_user_view,\
-    BreweriesReloadView, NearbyBreweriesView, BreweryDetailView,\
-    FavoriteBreweryView, UnfavoriteBreweryView, success
-
 from django.conf import settings
 from django.conf.urls.static import static
+# if settings.DEBUG:
+#     urlpatterns = static(settings.MEDIA_URL,
+#                          document_root=settings.MEDIA_ROOT)
+
+from microbrewforyou_app.views import login_view, logout_view,\
+    signup_view, AddPostView, post_detail_view, IndexView,\
+    UserDetailView, FavoriteBreweriesView,\
+    edit_post_view, FollowingView, UnfollowingView, edit_user_view,\
+    BreweriesReloadView, NearbyBreweriesView, BreweryDetailView,\
+    FavoriteBreweryView, UnfavoriteBreweryView, success, pic_form_view,\
+    FollowingBrewTypesView, UnFollowingBrewTypesView
 
 
 urlpatterns = [
@@ -40,8 +44,15 @@ urlpatterns = [
     path('login/', login_view, name="loginview"),
     path('signup/', signup_view, name="signupview"),
     path('logout/', logout_view, name="logoutview"),
-    path('fav_brewtypes/<int:favorite_id>/',
-         FavoriteBrewTypesView.as_view(), name="favoritebrewtypes"),
+    path('followingbrewtypes/<int:follow_brew_type_id>/',
+         FollowingBrewTypesView.as_view(), name='FollowingBrewTypesView'),
+    path('unfollowingbrewtypes/<int:unfollow_brew_type_id>/',
+         UnFollowingBrewTypesView.as_view(), name='UnFollowingBrewTypesView'),
+    # path('brewtypes/', brewtypes_view, name="brewtypesview"),
+    path('image_upload', pic_form_view, name='image_upload'),
+    path('success', success, name='success'),
+    # path('fav_brewtypes/<int:favorite_id>/',
+    #      FavoriteBrewTypesView.as_view(), name="favoritebrewtypes"),
     path('fav_breweries/<int:favorite_id>/',
          FavoriteBreweriesView.as_view(), name="favoritebreweries"),
     path('unfollowing/<int:unfollow_id>/',
