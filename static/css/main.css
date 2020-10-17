@@ -128,3 +128,44 @@ div.quote {
 input[type="file"] {
   color: white;
 }
+
+div.profile-main-container-top {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row;
+}
+
+div.profile-main-container-middle {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row;
+}
+
+div.profile-main-container-bottom {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row;
+}
+
+div.profile-box {
+  background-color: #2f2d3070;
+  border: 2px solid #554e45;
+  padding: 25px;
+  margin: 10px;
+}
+
+div.profile-section {
+  flex-basis: 25%;
+}
+
+div.friends-posts-section {
+  flex-basis: 35%;
+}
+
+div.suggested-friends-posts-section {
+  flex-basis: 35%;
+}
+
+.edit-user {
+  float: right;
+}

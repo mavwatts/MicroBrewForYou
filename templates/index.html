@@ -2,34 +2,66 @@
 
 <br />
 
-{% if request.user.is_authenticated %}
-<h1>
-  Profile for {{request.user}}
-  <a href="/edituser/{{request.user.id}}/" class="btn button-menu">Edit User</a>
-</h1>
+<div class="profile-main-container-top">
+  <div class="profile-section profile-box">
+    {% if request.user.is_authenticated %}
+    <a href="/edituser/{{request.user.id}}/" class="btn button-menu edit-user"
+      >Edit User</a
+    ><br/ ><br />
+    <h2>Profile for {{request.user}}</h2>
+    <br />
+    {% if request.user.user_image %}
+    <div align="center">
+      <img
+        src="/media/{{ request.user.user_image }}"
+        class="user_profile_image"
+        alt="Profile Image"
+        style="width: 300px; border: 2px solid white"
+      />
+    </div>
+    {% endif %}
+    <h3>User Id: {{request.user.id}}</h3>
+    <h3>Bio: {{request.user.bio}}</h3>
+    <h3>Following Count: {{follow_count}}</h3>
+    <h3>Member Since:<br/><span style=font-size:10px">{{request.user.user_since}}</span></h3>
+  </div>
+
+  <div class="friends-posts-section profile-box">
+    <h2>All Friends</h2>
+  </div>
+
+  <div class="suggested-friends-posts-section profile-box">
+    <h2>Suggested Friends</h2>
+  </div>
+</div>
+
+<div class="profile-main-container-middle">
+  <div class="fav-brew-types-section profile-box">
+    <h2>Favorite Brew Types</h2>
+    {% include "favorite_brew_type.html" %}
+  </div>
+
+  <div class="fav-breweries-section profile-box">
+    <h2>Favorite Breweries</h2>
+    {% include "favorite_breweries.html" %}
+  </div>
+
+  <div class="nearby-breweries-section profile-box">
+    <h2>Nearby Breweries</h2>
+    {% include "favorite_breweries.html" %}
+  </div>
+
+  <div class="friends-following-section profile-box">
+    <h2>Your Friends</h2>
+  </div>
+</div>
 <br />
-{% if request.user.user_image %}
-<h2>
-  <img
-    src="/media/{{ request.user.user_image }}"
-    class="user_profile_image"
-    alt="Profile Image"
-    style="width: 300px; border: 2px solid white"
-  />
-</h2>
-{% endif %}
-<h2>User Id: {{request.user.id}}</h2>
-<h2>Bio: {{request.user.bio}}</h2>
-<h2>Following Count: {{follow_count}}</h2>
-
-{% include "favorite_breweries.html" %} {% include "favorite_brew_type.html" %}
-
-<h2>Suggested Friends: {{follow_count}}</h2>
-
-<h2>Friends Post: {{follow_count}}</h2>
 <br />
+<div class="profile-main-container-bottom"></div>
+
 <br />
 {% elif request.user.is_anonymous %}
+</div></div>
 <h2>
   Welcome, please <a class="custom_link" href="/login/">login</a> or
   <a class="custom_link" href="/signup/">signup.</a>

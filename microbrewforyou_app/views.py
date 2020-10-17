@@ -321,7 +321,7 @@ class NearbyBreweriesView(View):
 
         return render(
             request, "nearby_breweries.html",
-            {"brewery_list_by_city": brewery_list_by_city})
+            {"brewery": brewery_list_by_city})
 
 
 # class FavoriteBrewTypesView(View):
