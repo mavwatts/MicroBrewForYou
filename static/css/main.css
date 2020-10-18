@@ -166,6 +166,18 @@ div.suggested-friends-posts-section {
   flex-basis: 35%;
 }
 
+div.fav-brew-types-section {
+  flex-basis: 28%;
+}
+
+div.nearby-breweries-section {
+  flex-basis: 28%;
+}
+
+div.friends-following-section {
+  flex-basis: 16%;
+}
+
 .edit-user {
   float: right;
 }
