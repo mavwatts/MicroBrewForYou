@@ -62,43 +62,52 @@ class IndexView(View):
         words_author = "Washington Irving"
         # all posts merge of posts
         all_posts = []
-        following_users_list = request.user.users_following.all()
-        for user in following_users_list:
-            user_posts = Posts.objects.filter(author=user.id)
-            for post in user_posts:
-                all_posts.append(post)
-        user_posts = Posts.objects.filter(
-            author=request.user)
-        for post in user_posts:
-            all_posts.append(post)
-        # end all posts merge
-        # suggested posts based on city and brew_types_liked merged
-        suggested_posts = []
-        suggested_users_list = CustomUser.objects.filter(
-            city=request.user.city, state=request.user.state)  # list of users
-        for user in suggested_users_list:
-            if user.id not in suggested_posts:
-                suggested_users_posts = Posts.objects.filter(author=user.id)
-                for post in suggested_users_posts:
-                    suggested_posts.append(post)
-        # end suggested
-        # nearby breweries
-        brewery_list_by_city = Breweries.objects.filter(
-            city=request.user.city, state=request.user.state)
-        # end nearby breweries
-        # favorite breweries start
-        fav_breweries = brewery_list_by_city
-        # favorite breweries end
-        # friends start
-        friends_list = []
-        for user in following_users_list:
-            friends_list.append(user)
-        # freinds end
-        number_posts = len(Posts.objects.filter(author=request.user))
+        # add if for anonymous user
         if request.user.is_anonymous:
             follow_count = 0
+            following_users_list = []
+            number_posts = 0
+            suggested_posts = []
+            brewery_list_by_city = []
+            fav_breweries = []
+            friends_list = []
         else:
             follow_count = len(request.user.users_following.all())
+            following_users_list = request.user.users_following.all()
+            for user in following_users_list:
+                user_posts = Posts.objects.filter(author=user.id)
+                for post in user_posts:
+                    all_posts.append(post)
+            user_posts = Posts.objects.filter(
+                author=request.user)
+            for post in user_posts:
+                all_posts.append(post)
+            # end all posts merge
+            # suggested posts based on city and brew_types_liked merged
+            suggested_posts = []
+            suggested_users_list = CustomUser.objects.filter(
+                city=request.user.city, state=request.user.state)  # list of users
+            for user in suggested_users_list:
+                if user.id not in suggested_posts:
+                    suggested_users_posts = Posts.objects.filter(
+                        author=user.id)
+                    for post in suggested_users_posts:
+                        suggested_posts.append(post)
+            # end suggested
+            # nearby breweries
+            brewery_list_by_city = Breweries.objects.filter(
+                city=request.user.city, state=request.user.state)
+            # end nearby breweries
+            # favorite breweries start
+            fav_breweries = brewery_list_by_city
+            # favorite breweries end
+            # friends start
+            friends_list = []
+            for user in following_users_list:
+                friends_list.append(user)
+            # freinds end
+            number_posts = len(Posts.objects.filter(author=request.user))
+
         return render(request, 'index.html', {'follow_count': follow_count,
                                               'number_posts': number_posts,
                                               'words_author': words_author,
