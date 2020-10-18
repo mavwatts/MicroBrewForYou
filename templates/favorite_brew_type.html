@@ -1,6 +1,3 @@
-<h1>Favorite Brew Types:</h1>
 {% for fav in request.user.fav_brewtypes.all %}
-<li>
-  {{fav.name}}  
-</li>
+<li>{{fav.name}}</li>
 {% endfor %}
