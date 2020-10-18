@@ -71,6 +71,7 @@ class IndexView(View):
             brewery_list_by_city = []
             fav_breweries = []
             friends_list = []
+            fav_breweries_count = 0
         else:
             follow_count = len(request.user.users_following.all())
             following_users_list = request.user.users_following.all()
@@ -100,6 +101,7 @@ class IndexView(View):
             # end nearby breweries
             # favorite breweries start
             fav_breweries = brewery_list_by_city
+            fav_breweries_count = len(fav_breweries)
             # favorite breweries end
             # friends start
             friends_list = []
@@ -116,7 +118,8 @@ class IndexView(View):
                                               'suggested_posts': suggested_posts,
                                               'brewery_list_by_city': brewery_list_by_city,
                                               'fav_breweries': fav_breweries,
-                                              'friends_list': friends_list})
+                                              'friends_list': friends_list,
+                                              'fav_breweries_count': fav_breweries_count})
 
 
 def login_view(request):
@@ -332,20 +335,22 @@ class UnfollowingView(View):
 
 class FavoriteBreweryView(View):
     def get(self, request, brewery_id):
+        user_to_edit = CustomUser.objects.filter(id=request.user.id).first()
         brewery = Breweries.objects.filter(id=brewery_id).first()
-        request.user.fav_breweries.add(brewery)
-        request.user.save()
+        user_to_edit.fav_breweries.add(brewery)
+        user_to_edit.save()
         return HttpResponseRedirect(reverse(
-            "brewery_detail", args=[brewery.id]))
+            "homepage"))
 
 
 class UnfavoriteBreweryView(View):
     def get(self, request, brewery_id):
+        user_to_edit = CustomUser.objects.filter(id=request.user.id).first()
         brewery = Breweries.objects.filter(id=brewery_id).first()
-        request.user.fav_breweries.remove(brewery)
-        request.user.save()
+        user_to_edit.fav_breweries.remove(brewery)
+        user_to_edit.save()
         return HttpResponseRedirect(reverse(
-            "brewery_detail", args=[brewery.id]))
+            "homepage"))
 
 
 class UserDetailView(View):
