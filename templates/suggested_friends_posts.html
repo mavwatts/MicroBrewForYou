@@ -1,0 +1,10 @@
+{% for post in suggested_posts %}
+        <h3>
+        <span class="small"
+            ><a  class="custom_link" href="/user/{{ post.author.id }}/">{{ post.author }}</a> -
+            <a  class="custom_link" href="/post/{{ post.id }}/">{{post.postTime}}</a></span
+        ><span class="small"
+            > - Updated: {{ post.lastUpdated }}</a></span><br />
+        {{ post.body }}
+        </h3>
+    {% endfor %}

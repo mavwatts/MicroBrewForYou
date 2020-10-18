@@ -158,8 +158,16 @@ div.profile-section {
   flex-basis: 25%;
 }
 
+div.user-section {
+  flex-basis: 25%;
+}
+
 div.friends-posts-section {
   flex-basis: 35%;
+}
+
+div.user-posts-section {
+  flex-basis: 75%;
 }
 
 div.suggested-friends-posts-section {
@@ -182,9 +190,9 @@ div.friends-following-section {
   float: right;
 }
 
-hr {
+hr.profile {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
-  border-top: 1px solid #eeeeee40;
+  border-top: 1px solid #554e4570;
 }

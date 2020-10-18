@@ -1,25 +1,24 @@
-<h1>Breweries Nearby:</h1>
-{% for brewery_single in brewery %} {% if brewery_single.name %}
-<h2>Name: {{brewery_single.name}}</h2>
+{% for brewery_single in brewery_list_by_city %} {% if brewery_single.name %}
+<h3>{{brewery_single.name}}</h3>
 {% endif %} {% if brewery_single.phone %}
-<h3>Phone: {{brewery_single.phone}}</h3>
+<h4>Phone: {{brewery_single.phone}}</h4>
 {% endif %} {% if brewery_single.address %}
-<h3>Address: {{brewery_single.address}}</h3>
+<h4>Address: {{brewery_single.address}}</h4>
 {% endif %} {% if brewery_single.city %}
-<h3>City: {{brewery_single.city}}</h3>
+<h4>City: {{brewery_single.city}}</h4>
 {% endif %} {% if brewery_single.state %}
-<h3>State: {{brewery_single.state}}</h3>
+<h4>State: {{brewery_single.state}}</h4>
 {% endif %} {% if brewery_single.website %}
-<h3>
-  Website:
-  <a href="{{brewery_single.website}}" target="_blank"
-    >{{brewery_single.website}}</a
+<h4>
+  <a href="{{brewery_single.website}}" target="_blank" class="custom_link"
+    >Website</a
   >
-</h3>
+</h4>
 {% endif %}
 <br />
-{% if request.user %}<a href="/" class="btn button-menu">Add as Favorite</a>
+{% if request.user %}<a href="/" class="btn button-menu">Add as Favorite</a
+><br /><br />
 <a href="/" class="btn button-menu">Remove as Favorite</a>
-<hr />
+<hr class="profile" />
 <br />
 {% endif %} {% endfor %}
