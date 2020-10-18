@@ -5,11 +5,17 @@
     <a href="{% url 'follow_brewery' brewery_id=brewery.id %}">Follow</a>
     <a href="{% url 'unfollow_brewery' brewery_id=brewery.id %}">Unfollow</a>
     <h2>{{ brewery.name }}</h2>
-    <h3>{{ brewery.address }}</h3>
-    <h3>{{ brewery.city }}</h3>
-    <h3>{{ brewery.state }}</h3>
-    <h3>{{ brewery.phone }}</h3>
-    <h3>{{ brewery.website }}</h3>
+    <h3>Address: {{ brewery.address }}</h3>
+    <h3>City: {{ brewery.city }}</h3>
+    <h3>State: {{ brewery.state }}</h3>
+    <h3>Phone: {{ brewery.phone }}</h3>
+    <h3>
+      <a href="{{brewery.website}}" target="_blank" class="custom_link"
+        >Website</a
+      >
+    </h3>
   </div>
 </div>
+<br />
+<br />
 {% endblock %}

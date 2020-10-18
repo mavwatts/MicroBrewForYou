@@ -24,7 +24,8 @@
     <h3>City: {{request.user.city}}</h3>
     <h3>State: {{request.user.state}}</h3>
     <h3>Bio: {{request.user.bio}}</h3>
-    <h3>Following Count: {{follow_count}}</h3>
+    <h3>Following Users: {{follow_count}}</h3>
+    <h3>Following Breweries: {{fav_breweries_count}}</h3>
     <h3>Number of Posts: {{number_posts}}</h3>
     <h3>Member Since:<br/><span style=font-size:10px">{{request.user.user_since}}</span></h3>
   </div>
@@ -75,6 +76,12 @@
 <h4><a href="/user/{{ friend.id }}/" target="_blank" class="custom_link"
     >{{friend.username}}</a></h4>
   {% endfor %}
+
+  {% for brewery in fav_breweries %} 
+<h4><a href="/brewery/{{ brewery.id }}" target="_blank" class="custom_link"
+    >{{brewery.name}}</a></h4>
+  {% endfor %}
+
   </div>
 </div>
 <br />
