@@ -1,11 +1,15 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse, redirect\
-    # , HttpResponse
+from django.shortcuts import render, HttpResponseRedirect, reverse, redirect,\
+    get_object_or_404  # , HttpResponse
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
+from django.views.generic import ListView
 from django.views.generic.base import View
 from microbrewforyou_app.models import CustomUser, Posts, BrewTypes, Breweries
 from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm,\
     EditUserForm, PicForm
+
+from itertools import chain
 
 # from django.templatetags.static import static  # might cause problem
 import requests
@@ -58,13 +62,28 @@ class IndexView(View):
     def get(self, request):
         words_quote = "They who drink beer, think beer."
         words_author = "Washington Irving"
+        all_posts = []
+        following_users_list = request.user.users_following.all()
+        for user in following_users_list:
+            user_posts = Posts.objects.filter(author=user.id)
+            for post in user_posts:
+                all_posts.append(post)
+        user_posts = Posts.objects.filter(
+            author=request.user)
+        for post in user_posts:
+            all_posts.append(post)
+        all_posts_sorted = all_posts.sort(
+            key=lambda x: x.postTime, reverse=True)
+        number_posts = len(Posts.objects.filter(author=request.user))
         if request.user.is_anonymous:
             follow_count = 0
         else:
             follow_count = len(request.user.users_following.all())
         return render(request, 'index.html', {'follow_count': follow_count,
+                                              'number_posts': number_posts,
                                               'words_author': words_author,
-                                              "words_quote": words_quote})
+                                              "words_quote": words_quote,
+                                              'all_posts': all_posts})
 
 
 def login_view(request):
@@ -229,6 +248,34 @@ def edit_post_view(request, post_id):
     else:
         return HttpResponseRedirect(reverse(
             "edit_postview", args=[edit_post.id]))
+
+
+class UserPostListView(View):
+    def get(self, request):
+        user_posts = Posts.objects.filter(
+            author=request.user).order_by('postTime').reverse()
+        return render(
+            request, "user_posts.html",
+            {"user_posts": user_posts}
+        )
+
+    # model = Posts
+    # template_name = 'index.html'
+    # context_object_name = 'posts'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(UserPostListView, self).get_context_data(**kwargs)
+    #     user = get_object_or_404(
+    #         CustomUser, username=self.kwargs.get('username'))
+    #     liked = [i for i in Posts.objects.filter(
+    #         user_name=user) if Like.objects.filter(user=self.request.user, post=i)]
+    #     context['liked_post'] = liked
+    #     return context
+
+    # def get_queryset(self):
+    #     user = get_object_or_404(
+    #         CustomUser, username=self.kwargs.get('username'))
+    #     return Posts.objects.filter(user_name=user).order_by('-date_posted')
 
 
 class FollowingView(View):
