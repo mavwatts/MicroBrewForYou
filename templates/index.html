@@ -5,10 +5,7 @@
 <div class="profile-main-container-top">
   <div class="profile-section profile-box">
     {% if request.user.is_authenticated %}
-    <a href="/edituser/{{request.user.id}}/" class="btn button-menu edit-user"
-      >Edit User</a
-    ><br/ ><br />
-    <h2>Profile for {{request.user}}</h2>
+    <h2 style="text-align: center;">Profile for {{ request.user.username }}</h2>
     <br />
     {% if request.user.user_image %}
     <div align="center">
@@ -20,39 +17,65 @@
       />
     </div>
     {% endif %}
-    <h3>User Id: {{request.user.id}}</h3>
+    <h3>User Id: {{request.user.id}} <a href="/edituser/{{request.user.id}}/" class="btn button-menu edit-user"
+      >Edit User</a
+    ></h3>
+    <h3>Name: {{request.user.first_name}}</h3>
+    <h3>City: {{request.user.city}}</h3>
+    <h3>State: {{request.user.state}}</h3>
     <h3>Bio: {{request.user.bio}}</h3>
     <h3>Following Count: {{follow_count}}</h3>
+    <h3>Number of Posts: {{number_posts}}</h3>
     <h3>Member Since:<br/><span style=font-size:10px">{{request.user.user_since}}</span></h3>
   </div>
 
   <div class="friends-posts-section profile-box">
-    <h2>All Friends</h2>
+    <h3>All Posts</h3>
+    <hr/>
+    {% for post in all_posts %}
+        <h3>
+        <span class="small"
+            ><a  class="custom_link" href="/user/{{ post.author.id }}/">{{ post.author }}</a> -
+            <a  class="custom_link" href="/post/{{ post.id }}/">{{post.postTime}}</a></span
+        ><span class="small"
+            > - Updated: {{ post.lastUpdated }}</a></span><br />
+        {{ post.body }}
+        </h3>
+    {% endfor %}
+    {% comment %} {% include 'user_posts.html' %} {% endcomment %}
   </div>
 
   <div class="suggested-friends-posts-section profile-box">
-    <h2>Suggested Friends</h2>
+    <h3>Suggested Friends</h3>
+    <hr/>
   </div>
 </div>
 
 <div class="profile-main-container-middle">
   <div class="fav-brew-types-section profile-box">
-    <h2>Favorite Brew Types</h2>
+    <h3>Favorite Brew Types</h3>
+    <hr/>
     {% include "favorite_brew_type.html" %}
+    
   </div>
 
   <div class="fav-breweries-section profile-box">
-    <h2>Favorite Breweries</h2>
+    <h3>Favorite Breweries</h3>
+    <hr/>
     {% include "favorite_breweries.html" %}
+    
   </div>
 
   <div class="nearby-breweries-section profile-box">
-    <h2>Nearby Breweries</h2>
-    {% include "favorite_breweries.html" %}
+    <h3>Nearby Breweries</h3>
+    <hr/>
+    {% include "nearby_breweries.html" %}
+    {% comment %} {% url 'nearbybreweriesview' %} {% endcomment %}
   </div>
 
   <div class="friends-following-section profile-box">
-    <h2>Your Friends</h2>
+    <h3>Friends</h3>
+    <hr/>
   </div>
 </div>
 <br />
