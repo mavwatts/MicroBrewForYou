@@ -48,6 +48,16 @@
   <div class="suggested-friends-posts-section profile-box">
     <h3>Suggested Friends</h3>
     <hr/>
+    {% for post in suggested_posts %}
+        <h3>
+        <span class="small"
+            ><a  class="custom_link" href="/user/{{ post.author.id }}/">{{ post.author }}</a> -
+            <a  class="custom_link" href="/post/{{ post.id }}/">{{post.postTime}}</a></span
+        ><span class="small"
+            > - Updated: {{ post.lastUpdated }}</a></span><br />
+        {{ post.body }}
+        </h3>
+    {% endfor %}
   </div>
 </div>
 
@@ -62,20 +72,66 @@
   <div class="fav-breweries-section profile-box">
     <h3>Favorite Breweries</h3>
     <hr/>
-    {% include "favorite_breweries.html" %}
+    {% for brewery_single in fav_breweries%} 
+    {% if brewery_single.name %}
+<h3>{{brewery_single.name}}</h3>
+{% endif %} {% if brewery_single.phone %}
+<h4>Phone: {{brewery_single.phone}}</h4>
+{% endif %} {% if brewery_single.address %}
+<h4>Address: {{brewery_single.address}}</h4>
+{% endif %} {% if brewery_single.city %}
+<h4>City: {{brewery_single.city}}</h4>
+{% endif %} {% if brewery_single.state %}
+<h4>State: {{brewery_single.state}}</h4>
+{% endif %} {% if brewery_single.website %}
+<h4>
+  <a href="{{brewery_single.website}}" target="_blank"
+    >Website</a>
+</h4>
+{% endif %}
+<br />
+{% if request.user %}<a href="/" class="btn button-menu">Add as Favorite</a><br /><br />
+<a href="/" class="btn button-menu">Remove as Favorite</a>
+<hr />
+<br />
+{% endif %} {% endfor %}
     
   </div>
 
   <div class="nearby-breweries-section profile-box">
     <h3>Nearby Breweries</h3>
     <hr/>
-    {% include "nearby_breweries.html" %}
-    {% comment %} {% url 'nearbybreweriesview' %} {% endcomment %}
+    {% for brewery_single in brewery_list_by_city %} {% if brewery_single.name %}
+<h3>{{brewery_single.name}}</h3>
+{% endif %} {% if brewery_single.phone %}
+<h4>Phone: {{brewery_single.phone}}</h4>
+{% endif %} {% if brewery_single.address %}
+<h4>Address: {{brewery_single.address}}</h4>
+{% endif %} {% if brewery_single.city %}
+<h4>City: {{brewery_single.city}}</h4>
+{% endif %} {% if brewery_single.state %}
+<h4>State: {{brewery_single.state}}</h4>
+{% endif %} {% if brewery_single.website %}
+<h4>
+  <a href="{{brewery_single.website}}" target="_blank"
+    >Website</a>
+</h4>
+{% endif %}
+<br />
+{% if request.user %}<a href="/" class="btn button-menu">Add as Favorite</a><br /><br />
+<a href="/" class="btn button-menu">Remove as Favorite</a>
+<hr />
+<br />
+{% endif %} {% endfor %}
   </div>
 
   <div class="friends-following-section profile-box">
     <h3>Friends</h3>
     <hr/>
+    {% for friend in friends_list %} 
+<h4><a href="/user/{{ friend.id }}/" target="_blank"
+    >{{friend.username}}</a></h4>
+  {% endfor %}
   </div>
 </div>
 <br />
