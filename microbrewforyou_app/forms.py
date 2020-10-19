@@ -8,9 +8,11 @@ class LoginForm(forms.Form):
 
 
 class SignupForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+
     class Meta:
         model = CustomUser
-        fields = ['username', 'password', 'first_name', 'user_image',
+        fields = ['username', 'first_name', 'user_image',
                   'bio', 'address', 'city', 'state']
 
 

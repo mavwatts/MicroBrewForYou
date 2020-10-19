@@ -1,18 +1,22 @@
 {% if suggested_posts %}
-
     {% for post in suggested_posts.all%}
         <h3>
-        <span class="small"
-            ><a  class="custom_link" href="/user/{{ post.author.id }}/">{{ post.author }}</a> -
-            <a  class="custom_link" href="/post/{{ post.id }}/">{{post.postTime}}</a></span
-        ><span class="small"
-            > - Updated: {{ post.lastUpdated }}</a></span><br />
-        {{ post.body }}
+            <span class="small">
+                <a  class="custom_link" href="{% url 'userview' user_id=post.author.id %}">
+                    {{ post.author }}
+                </a> -
+                <a  class="custom_link" href="{% url 'postview' post_id=post.id %}">
+                    {{post.postTime}}
+                </a>
+            </span>
+            <span class="small">
+                - Updated: {{ post.lastUpdated }}
+            </span>
+            <br />
+            {{ post.body }}
         </h3>
     {% endfor %}
 
 {% else %}
-
-<h3>There are no new suggestions.</h3>
-
+    <h3>There are no new suggestions.</h3>
 {% endif %}

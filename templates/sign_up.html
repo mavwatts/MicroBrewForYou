@@ -1,9 +1,15 @@
-{% extends 'base.html' %} {% block content %} <br />
-<h2>Please fill out the form below.</h2>
-<br />
-<form action="" method="POST" enctype="multipart/form-data">
-  {% csrf_token %} {{ form.as_p }}
-  <input class="btn button-menu" type="submit" value="Submit!" />
-</form>
-<br /><br />
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %} 
+  <br />
+  <h2>Please fill out the form below.</h2>
+  <br />
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn button-menu" type="submit" value="Submit!" />
+  </form>
+  <br />
+  <br />
 {% endblock %}

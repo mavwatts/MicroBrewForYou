@@ -133,4 +133,4 @@ STATICFILES_DIRS = [
 
 AUTH_USER_MODEL = "microbrewforyou_app.CustomUser"
 
-CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,31 +1,44 @@
-{% for brewery_single in brewery_list_by_city %} {% if brewery_single.name %}
-<h3>{{brewery_single.name}}</h3>
-{% endif %} {% if brewery_single.phone %}
-<h4>Phone: {{brewery_single.phone}}</h4>
-{% endif %} {% if brewery_single.address %}
-<h4>Address: {{brewery_single.address}}</h4>
-{% endif %} {% if brewery_single.city %}
-<h4>City: {{brewery_single.city}}</h4>
-{% endif %} {% if brewery_single.state %}
-<h4>State: {{brewery_single.state}}</h4>
-{% endif %} {% if brewery_single.website %}
-<h4>
-  <a href="{{brewery_single.website}}" target="_blank" class="custom_link"
-    >Website</a
-  >
-</h4>
-{% endif %}
-<br />
-{% if brewery_single not in request.user.fav_breweries.all %}
-<a href="/favorite_brewery/{{brewery_single.id}}/" class="btn button-menu"
-  >Add to Favorites</a
->
-{% else %}
-<a href="/unfavorite_brewery/{{brewery_single.id}}/" class="btn button-menu"
-  >Remove from Favorites</a
->
-<br />
-{% endif %}
-<hr class="profile" />
-<br />
+{% for brewery_single in brewery_list_by_city %}
+  {% if brewery_single.name %}
+    <h3>{{brewery_single.name}}</h3>
+  {% endif %}
+
+  {% if brewery_single.phone %}
+    <h4>Phone: {{brewery_single.phone}}</h4>
+  {% endif %}
+  
+  {% if brewery_single.address %}
+    <h4>Address: {{brewery_single.address}}</h4>
+  {% endif %}
+
+  {% if brewery_single.city %}
+    <h4>City: {{brewery_single.city}}</h4>
+  {% endif %}
+  
+  {% if brewery_single.state %}
+    <h4>State: {{brewery_single.state}}</h4>
+  {% endif %}
+  
+  {% if brewery_single.website %}
+    <h4>
+      <a href="{{brewery_single.website}}" target="_blank" class="custom_link">
+        Website
+      </a>
+    </h4>
+  {% endif %}
+  
+  <br />
+  {% if brewery_single not in request.user.fav_breweries.all %}
+    <a href="{% url 'favorite_brewery' brewery_id=brewery_single.id %}" class="btn button-menu">
+      Add to Favorites
+    </a>
+  {% else %}
+    <a href="{% url 'unfavorite_brewery' brewery_id=brewery_single.id %}" class="btn button-menu">
+      Remove from Favorites
+    </a>
+    <br />
+  {% endif %}
+  
+  <hr class="profile" />
+  <br />
 {% endfor %}
