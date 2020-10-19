@@ -7,11 +7,6 @@ from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, HttpResponseRedirect, reverse, redirect
 from django.conf.urls.static import static
-# from django.contrib.auth.mixins import LoginRequiredMixin
-# from django.views.generic import ListView
-
-
-# from django.templatetags.static import static  # might cause problem
 
 
 class BreweriesReloadView(View):
@@ -299,24 +294,6 @@ class UserPostListView(View):
             {"user_posts": user_posts}
         )
 
-    # model = Posts
-    # template_name = 'index.html'
-    # context_object_name = 'posts'
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(UserPostListView, self).get_context_data(**kwargs)
-    #     user = get_object_or_404(
-    #         CustomUser, username=self.kwargs.get('username'))
-    #     liked = [i for i in Posts.objects.filter(
-    #         user_name=user) if Like.objects.filter(user=self.request.user, post=i)]
-    #     context['liked_post'] = liked
-    #     return context
-
-    # def get_queryset(self):
-    #     user = get_object_or_404(
-    #         CustomUser, username=self.kwargs.get('username'))
-    #     return Posts.objects.filter(user_name=user).order_by('-date_posted')
-
 
 class FollowingView(View):
     def get(self, request, follow_id):
@@ -419,9 +396,7 @@ class FollowingBrewTypesView(View):
         brewtype = BrewTypes.objects.filter(id=follow_brew_type_id).first()
         request.user.fav_brewtypes.add(brewtype)
         brewtype.img_upload = static(f'images/{follow_brew_type_id}.JPG')
-        breakpoint()
         request.user.save()
-        brewtype.save()
         return HttpResponseRedirect(reverse(
             "homepage"))
 

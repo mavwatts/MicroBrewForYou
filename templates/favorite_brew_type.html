@@ -1,4 +1,11 @@
-{% for fav in request.user.fav_brewtypes.all %}
+{% load static %} {% for fav in request.user.fav_brewtypes.all %}
 <p>{{fav.name}}</p>
-<img src="{{ fav.image_upload }}" />
+
+<img
+  src="static/images/{{fav.id}}.JPG"
+  class="profile-brew-type-image"
+  alt="logo"
+/>
+<br />
+<br />
 {% endfor %}
