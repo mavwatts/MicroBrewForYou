@@ -82,6 +82,7 @@ class IndexView(View):
             # end all posts merge
             # suggested posts based on city and brew_types_liked merged
             suggested_posts = []
+            suggested_posts_list = []
             suggested_users_list = CustomUser.objects.filter(
                 city=request.user.city, state=request.user.state)
             for user in suggested_users_list:
@@ -90,6 +91,8 @@ class IndexView(View):
                         suggested_posts.append(Posts.objects.filter(
                             author=user.id))
             if suggested_posts:
+                for post in suggested_posts:
+                    suggested_posts_list.append(post)
                 suggested_posts = suggested_posts[0].all()
             else:
                 suggested_posts = suggested_posts

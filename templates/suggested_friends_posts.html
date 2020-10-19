@@ -1,6 +1,6 @@
 {% if suggested_posts %}
 
-    {% for post in suggested_posts%}
+    {% for post in suggested_posts.all%}
         <h3>
         <span class="small"
             ><a  class="custom_link" href="/user/{{ post.author.id }}/">{{ post.author }}</a> -
