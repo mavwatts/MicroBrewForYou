@@ -1,20 +1,27 @@
 <div align="right" class="main_menu">
   {% include "beer_words.html" %}
-  <a href="/" class="btn button-menu">Home</a>
+  <a href="{% url 'homepage' %}" class="btn button-menu">Home</a>
   &nbsp;
-  <a href="/login/" class="btn button-menu">Login</a>
+  <a href="{% url 'loginview' %}" class="btn button-menu">Login</a>
 
-  {% if request.user.is_authenticated %} &nbsp;<a
-    href="/logout/"
-    class="btn button-menu"
-    >Logout</a
-  >{% endif %} {% if not request.user.is_authenticated %}&nbsp;<a
-    href="/signup/"
-    class="btn button-menu"
-    >Signup</a
-  >{% endif %} {% if request.user.is_authenticated %}&nbsp;<a
-    href="/addpost/"
-    class="btn button-menu"
-    >Add Post</a
-  >{% endif %}
+  {% if request.user.is_authenticated %}
+    &nbsp;
+    <a href="{% url 'logoutview' %}" class="btn button-menu">
+      Logout
+    </a>
+  {% endif %}
+  
+  {% if not request.user.is_authenticated %}
+    &nbsp;
+    <a href="{% url 'signupview' %}" class="btn button-menu">
+     Signup
+    </a>
+  {% endif %}
+  
+  {% if request.user.is_authenticated %}
+    &nbsp;
+    <a href="{% url 'addpostview' %}" class="btn button-menu">
+      Add Post
+    </a>
+  {% endif %}
 </div>

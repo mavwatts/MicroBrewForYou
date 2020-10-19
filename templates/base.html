@@ -33,25 +33,34 @@
   </head>
 
   <body id="custom_body">
-    {% include "home_header.html" %} {% include "menu.html" %}
+    {% include "home_header.html" %}
+    {% include "menu.html" %}
 
-    <div class="container_main">{% block content %} {% endblock %}</div>
+    <div class="container_main">
+      {% block content %}{% endblock %}
+    </div>
     <div class="footer">
       <div class="links-footer">
         <p>
-          <a class="custom_link_white" href="/">Home</a> -
-          <a class="custom_link_white" href="/login/">Login</a>
-          {% if request.user.is_authenticated %} -
-          <a class="custom_link_white" href="/logout/">Logout</a>
-          {% endif %} -
-          <a class="custom_link_white" href="/signup/">Signup</a>
-          {% if request.user.is_authenticated %} -
-          <a class="custom_link_white" href="/addpost/">Add Post</a>
-          {% endif %} {% if request.user.is_superuser %} -
-          <a class="custom_link_white" href="/loadbreweries/">Load Breweries</a>
-          -
-          <a class="custom_link_white" href="/admin/">Admin</a>
+          <a class="custom_link_white" href="{% url 'homepage' %}">Home</a> -
+          <a class="custom_link_white" href="{% url 'loginview' %}">Login</a>
+          {% if request.user.is_authenticated %}
+             -
+            <a class="custom_link_white" href="{% url 'logoutview' %}">Logout</a>
           {% endif %}
+
+          -
+          <a class="custom_link_white" href="{% url 'signupview' %}">Signup</a>
+          {% if request.user.is_authenticated %} -
+            <a class="custom_link_white" href="{% url 'addpostview' %}">Add Post</a>
+          {% endif %}
+          
+          {% if request.user.is_superuser %} -
+            <a class="custom_link_white" href="{% url 'loadbreweriesview' %}">Load Breweries</a>
+            -
+            <a class="custom_link_white" href="/admin/">Admin</a>
+          {% endif %}
+        
         </p>
       </div>
       <div class="copyright-footer"><p>&copy; 2020, MicroBrewForYou</p></div>

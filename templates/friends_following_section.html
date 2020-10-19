@@ -1,11 +1,13 @@
 {% for friend in friends_list %}
-<h4>
-  <a href="/user/{{ friend.id }}/" target="_blank" class="custom_link"
-    >{{friend.username}}</a
-  >
-</h4>
-{% endfor %} {% for brewery in fav_breweries %}
-<h4>
-  <a href="/brewery/{{ brewery.id }}" class="custom_link">{{brewery.name}}</a>
-</h4>
+  <h4>
+    <a href="{% url 'userview' user_id=friend.id %}" target="_blank" class="custom_link">
+      {{friend.username}}
+    </a>
+  </h4>
+{% endfor %}
+
+{% for brewery in fav_breweries %}
+  <h4>
+    <a href="{% url 'brewery_detail' brewery_id=brewery.id %}" class="custom_link">{{brewery.name}}</a>
+  </h4>
 {% endfor %}

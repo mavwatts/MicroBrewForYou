@@ -1,54 +1,67 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+
 {% block content %}
-<br />
-<div class="profile-main-container-top">
-    <div class="user-section profile-box">
-        
-        <h2 style="text-align: center;">Profile for {{ selected_user.username }}</h2>
-        <br />
-        {% if selected_user.user_image %}
-        <div align="center">
-        <img
-            src="/media/{{ selected_user.user_image }}"
-            class="user_profile_image"
-            alt="Profile Image"
-            style="width: 300px; border: 2px solid white"
-        />
+    <br />
+    <div class="profile-main-container-top">
+        <div class="user-section profile-box">
+            <h2 style="text-align: center;">
+                Profile for {{ selected_user.username }}
+            </h2>
+            <br />
+            {% if selected_user.user_image %}
+                <div align="center">
+                <img
+                    src="/media/{{ selected_user.user_image }}"
+                    class="user_profile_image"
+                    alt="Profile Image"
+                    style="width: 300px; border: 2px solid white"
+                />
+                </div>
+            {% endif %}
+
+            {% if request.user == selected_user %}
+                <h3>
+                    User Id: {{selected_user.id}} 
+                    <a href="{% url 'edit_userview' user_id=selected_user.id %}" class="btn button-menu edit-user">
+                        Edit User
+                    </a>
+                </h3>
+            {% endif %}
+
+            <h3>Name: {{selected_user.first_name}}</h3>
+            <h3>City: {{selected_user.city}}</h3>
+            <h3>State: {{selected_user.state}}</h3>
+            <h3>Bio: {{selected_user.bio}}</h3>
+            <h3>Following Count: {{number_following}}</h3>
+            <h3>Number of Posts: {{number_posts}}</h3>
+            <h3>Member Since:
+                <br/>
+                <span style="font-size:10px">
+                    {{selected_user.user_since}}
+                </span>
+            </h3>
+            <br />
+            {% if request.user != selected_user %}
+                {% if selected_user not in following_list %}
+                    <a href="{% url 'following' follow_id=selected_user.id %}" class="btn button-menu">Follow</a>
+                {% else %}
+                    <a href="{% url 'unfollowing' unfollow_id=selected_user.id %}" class="btn button-menu">Unfollow</a>
+                {% endif %}
+
+            {% endif %}
+
         </div>
-        {% endif %}
-        {% if request.user == selected_user %}
-        <h3>User Id: {{selected_user.id}} <a href="/edituser/{{selected_user.id}}/" class="btn button-menu edit-user"
-        >Edit User</a
-        ></h3>
-        {% endif %}
-        <h3>Name: {{selected_user.first_name}}</h3>
-        <h3>City: {{selected_user.city}}</h3>
-        <h3>State: {{selected_user.state}}</h3>
-        <h3>Bio: {{selected_user.bio}}</h3>
-        <h3>Following Count: {{number_following}}</h3>
-        <h3>Number of Posts: {{number_posts}}</h3>
-        <h3>Member Since:<br/><span style=font-size:10px">{{selected_user.user_since}}</span></h3>
-        <br />
-        {% if request.user != selected_user %}
-        {% if selected_user not in following_list %}
-        <a href="/following/{{selected_user.id}}/" class="btn button-menu">Follow</a>
-        {% else %}
-        <a href="/unfollowing/{{selected_user.id}}/" class="btn button-menu">Unfollow</a>
-        {% endif %}
-        {% endif %}
+
+
+        <div class="user-posts-section profile-box">
+            <h3>{{ selected_user }}'s Posts</h3>
+            <hr class="profile"/>
+
+            {% include 'user_posts.html' %}
+        </div>
     </div>
-
-    <div class="user-posts-section profile-box">
-        <h3>{{ selected_user }}'s Posts</h3>
-        <hr class="profile"/>
-        
-        {% include 'user_posts.html' %}
-    </div>
-</div>
-
-  <br />
-  <br />
-
+    <br />
+    <br />
 {% endblock %}
 
 
