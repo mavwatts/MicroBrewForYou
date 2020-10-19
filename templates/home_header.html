@@ -11,6 +11,25 @@
     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
   </ol>
   <div class="carousel-inner" style="height: 470px">
+    <div class="search-header">
+      <h2>Search For Micro Breweries in Your City!</h2>
+      <br />
+      <form class="form-inline">
+        <input
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="City"
+          aria-label="City"
+        />
+        <input
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="State"
+          aria-label="State"
+        />
+        <a class="btn button-menu" type="submit">Search</a>
+      </form>
+    </div>
     <img src="{% static "images/logo.png" %}" class="logo_mbfy" alt="logo" />
     <div class="item active">
       <img src="{% static "images/slider4.jpg" %}" class="d-block w-100"
