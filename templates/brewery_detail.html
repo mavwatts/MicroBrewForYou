@@ -2,8 +2,7 @@
 <br />
 <div class="brewery">
   <div class="two-column">
-    <a href="{% url 'follow_brewery' brewery_id=brewery.id %}">Follow</a>
-    <a href="{% url 'unfollow_brewery' brewery_id=brewery.id %}">Unfollow</a>
+
     <h2>{{ brewery.name }}</h2>
     <h3>Address: {{ brewery.address }}</h3>
     <h3>City: {{ brewery.city }}</h3>
@@ -17,5 +16,14 @@
   </div>
 </div>
 <br />
-<br />
+
+<a href="/favorite_brewery/{{brewery.id}}/" class="btn button-menu"
+  >Add to Favorites</a
+>
+<br /><br />
+<a href="/unfavorite_brewery/{{brewery.id}}/" class="btn button-menu"
+  >Remove from Favorites</a
+>
+<br/>
+<br/>
 {% endblock %}
