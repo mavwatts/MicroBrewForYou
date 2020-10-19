@@ -2,7 +2,6 @@
 <br />
 <div class="brewery">
   <div class="two-column">
-
     <h2>{{ brewery.name }}</h2>
     <h3>Address: {{ brewery.address }}</h3>
     <h3>City: {{ brewery.city }}</h3>
@@ -16,14 +15,16 @@
   </div>
 </div>
 <br />
-
+{% if brewery not in request.user.fav_breweries.all %}
 <a href="/favorite_brewery/{{brewery.id}}/" class="btn button-menu"
   >Add to Favorites</a
 >
-<br /><br />
+{% else %}
 <a href="/unfavorite_brewery/{{brewery.id}}/" class="btn button-menu"
   >Remove from Favorites</a
 >
-<br/>
-<br/>
+<br />
+{% endif %}
+<hr class="profile" />
+<br />
 {% endblock %}
