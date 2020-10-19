@@ -16,6 +16,10 @@ body#custom_body {
 .container_main {
   margin-left: 70px;
   margin-right: 70px;
+  background-image: url(/media/images/logo-bg.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center top;
 }
 
 input[type="submit"] {
@@ -213,4 +217,8 @@ hr.profile {
 }
 .profile-brew-type-image {
   width: 255px;
+}
+
+#home-nobody-loggedin {
+  text-align: center;
 }

@@ -84,12 +84,18 @@
 <div class="profile-main-container-bottom"></div>
 
 <br />
+</div>
 {% elif request.user.is_anonymous %}
 </div></div>
-<h2>
-  Welcome, please <a class="custom_link" href="/login/">login</a> or
-  <a class="custom_link" href="/signup/">signup.</a>
-</h2>
+<div id="home-nobody-loggedin">
+  <h1>Welcome to MicroBrewForYou!</h1>
+  <h2>Beer is that which binds us and brings friends together!</h2>
+    <h2>Please <a class="custom_link" href="/login/">login</a> or
+    <a class="custom_link" href="/signup/">signup.</a>
+  </h2>
+  <br />
+  <br />
+</div>
 <br />
-<br />
+  <br />
 {% endif %} {% endblock %}
