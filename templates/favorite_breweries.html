@@ -16,9 +16,16 @@
 </h4>
 {% endif %}
 <br />
-{% if request.user %}<a href="/" class="btn button-menu">Add as Favorite</a
-><br /><br />
-<a href="/" class="btn button-menu">Remove as Favorite</a>
+{% if brewery_single not in request.user.fav_breweries.all %}
+<a href="/favorite_brewery/{{brewery_single.id}}/" class="btn button-menu"
+  >Add to Favorites</a
+>
+{% else %}
+<a href="/unfavorite_brewery/{{brewery_single.id}}/" class="btn button-menu"
+  >Remove from Favorites</a
+>
+<br />
+{% endif %}
 <hr class="profile" />
 <br />
-{% endif %} {% endfor %}
+{% endfor %}
