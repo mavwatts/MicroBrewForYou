@@ -1,16 +1,17 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse, redirect
-from django.contrib.auth import login, logout, authenticate
-# from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
-# from django.views.generic import ListView
-from django.views.generic.base import View
-from microbrewforyou_app.models import CustomUser, Posts, BrewTypes, Breweries
+import requests
 from microbrewforyou_app.forms import LoginForm, SignupForm, PostForm,\
     EditUserForm, PicForm
+from microbrewforyou_app.models import CustomUser, Posts, BrewTypes, Breweries
+from django.views.generic.base import View
+from django.http import HttpResponse
+from django.contrib.auth import login, logout, authenticate
+from django.shortcuts import render, HttpResponseRedirect, reverse, redirect
+from django.conf.urls.static import static
+# from django.contrib.auth.mixins import LoginRequiredMixin
+# from django.views.generic import ListView
 
 
 # from django.templatetags.static import static  # might cause problem
-import requests
 
 
 class BreweriesReloadView(View):
@@ -415,19 +416,20 @@ class NearbyBreweriesView(View):
 
 class FollowingBrewTypesView(View):
     def get(self, request, follow_brew_type_id):
-        request.user.fav_brewtypes.add(follow_brew_type_id)
         brewtype = BrewTypes.objects.filter(id=follow_brew_type_id).first()
-        brewtype_image = static(f'images/{follow_brew_type_id}.JPG')
-        brewtype.img_upload = brewtype_image
-        brewtype.save()
+        request.user.fav_brewtypes.add(brewtype)
+        brewtype.img_upload = static(f'images/{follow_brew_type_id}.JPG')
+        breakpoint()
         request.user.save()
+        brewtype.save()
         return HttpResponseRedirect(reverse(
             "homepage"))
 
 
 class UnFollowingBrewTypesView(View):
     def get(self, request, unfollow_brew_type_id):
-        request.user.fav_brewtypes.remove(unfollow_brew_type_id)
+        brewtype = BrewTypes.objects.filter(id=unfollow_brew_type_id).first()
+        request.user.fav_brewtypes.remove(brewtype)
         request.user.save()
         return HttpResponseRedirect(reverse(
             "homepage"))

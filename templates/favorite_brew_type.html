@@ -1,3 +1,4 @@
 {% for fav in request.user.fav_brewtypes.all %}
-<li>{{fav.name}}</li>
+<p>{{fav.name}}</p>
+<img src="{{ fav.image_upload }}" />
 {% endfor %}
