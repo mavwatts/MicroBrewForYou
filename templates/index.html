@@ -90,16 +90,23 @@
     </div>
 
     <br />
-    <br />
-    <div class="profile-main-container-bottom">
+  {% elif request.user.is_anonymous %}
+    <div id="home-nobody-loggedin">
+      <h1>Welcome to MicroBrewForYou!</h1>
+      <h2>Beer is that which binds us and brings friends together!</h2>
+        <h2>Please 
+        <a class="custom_link" href="{% url 'loginview' %}">
+          login
+        </a>
+        or
+        <a class="custom_link" href="{% url 'signupview' %}">
+          signup.
+        </a>
+      </h2>
+      <br />
+      <br />
     </div>
     <br />
-  {% elif request.user.is_anonymous %}
-    <h2>
-      Welcome, please <a class="custom_link" href="{% url 'loginview' %}">login</a> or
-      <a class="custom_link" href="{% url 'signupview' %}">signup.</a>
-    </h2>
     <br />
-    <br />
-  {% endif %} 
+  {% endif %}
 {% endblock %}
