@@ -112,16 +112,18 @@ class IndexView(View):
             # freinds end
             number_posts = len(Posts.objects.filter(author=request.user))
 
-        return render(request, 'index.html', {'follow_count': follow_count,
-                                              'number_posts': number_posts,
-                                              'words_author': words_author,
-                                              "words_quote": words_quote,
-                                              'all_posts': all_posts,
-                                              'suggested_posts': suggested_posts,
-                                              'brewery_list_by_city': brewery_list_by_city,
-                                              'fav_breweries': fav_breweries,
-                                              'friends_list': friends_list,
-                                              'fav_breweries_count': fav_breweries_count})
+        return render(
+            request, 'index.html',
+            {'follow_count': follow_count,
+             'number_posts': number_posts,
+             'words_author': words_author,
+             "words_quote": words_quote,
+             'all_posts': all_posts,
+             'suggested_posts': suggested_posts,
+             'brewery_list_by_city': brewery_list_by_city,
+             'fav_breweries': fav_breweries,
+             'friends_list': friends_list,
+             'fav_breweries_count': fav_breweries_count})
 
 
 def login_view(request):
@@ -155,7 +157,8 @@ def signup_view(request):
                             "bio"), user_image=data.get(
                                 "user_image"), address=data.get(
                                     "address"), city=data.get(
-                                        "city").title(), state=data.get("state").title())
+                                        "city").title(), state=data.get(
+                                            "state").title())
             login(request, new_user)
             return HttpResponseRedirect(reverse("homepage"))
 
@@ -304,7 +307,7 @@ class FollowingView(View):
         request.user.users_following.add(add_user)
         request.user.save()
         return HttpResponseRedirect(reverse(
-            "userview", args=[add_user.id]))
+            "homepage"))
 
 
 class UnfollowingView(View):
@@ -314,7 +317,7 @@ class UnfollowingView(View):
         logged_in_user.users_following.remove(remove_user)
         logged_in_user.save()
         return HttpResponseRedirect(reverse(
-            "userview", args=[remove_user.id]))
+            "homepage"))
 
 
 class FavoriteBreweryView(View):
