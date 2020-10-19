@@ -109,13 +109,6 @@ div.quote {
   display: flex;
 }
 
-/* .brew_type_list_spacing_longer_content {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: space-between;
-} */
-
 .brew_type_list_paragraph_centering {
   justify-content: center;
   align-items: center;
@@ -178,6 +171,12 @@ div.fav-brew-types-section {
   flex-basis: 28%;
 }
 
+div.fav-brew-types-section-scroll {
+  height: 420px;
+  overflow-y: scroll;
+  padding-right: 16px;
+}
+
 div.fav-breweries-section {
   flex-basis: 28%;
 }
@@ -211,4 +210,7 @@ hr.profile {
   margin-bottom: 20px;
   border: 0;
   border-top: 1px solid #554e4570;
+}
+.profile-brew-type-image {
+  width: 255px;
 }

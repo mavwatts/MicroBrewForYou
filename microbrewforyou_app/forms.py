@@ -14,13 +14,6 @@ class SignupForm(forms.ModelForm):
                   'bio', 'address', 'city', 'state']
 
 
-# class EditUserForm(forms.ModelForm):
-#     class Meta:
-#         model = CustomUser
-#         fields = ['username', 'first_name', 'user_image',
-#                   'bio', 'address', 'city', 'state']
-
-
 class EditUserForm(forms.Form):
     username = forms.CharField(max_length=240)
     first_name = forms.CharField(max_length=240)
