@@ -1,7 +1,10 @@
+{% load crispy_forms_tags %}
+
 <br />
 <h2>Please fill out the form below.</h2>
 <br />
 <form action="" method="POST">
-  {% csrf_token %} {{ form.as_p }}
+  {% csrf_token %}
+  {{ form|crispy }}
   <input class="btn button-menu" type="submit" value="Submit!" />
 </form>
