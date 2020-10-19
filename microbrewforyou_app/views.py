@@ -388,7 +388,6 @@ class NearbyBreweriesView(View):
     def get(self, request):
         brewery_list_by_city = Breweries.objects.filter(
             city=request.user.city).all()
-        breakpoint()
         return render(
             request, "nearby_breweries.html",
             {"brewery": brewery_list_by_city})
@@ -434,7 +433,6 @@ def pic_form_view(request, brew_type_id):
             return redirect('success')
     else:
         form = PicForm()
-    breakpoint()
     return render(request, 'favorite_brew_type.html', {'form': form})
 
 
