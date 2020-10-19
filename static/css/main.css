@@ -178,8 +178,24 @@ div.fav-brew-types-section {
   flex-basis: 28%;
 }
 
+div.fav-breweries-section {
+  flex-basis: 28%;
+}
+
+div.fav-breweries-section-scroll {
+  height: 500px;
+  overflow-y: scroll;
+  padding-right: 16px;
+}
+
 div.nearby-breweries-section {
   flex-basis: 28%;
+}
+
+div.nearby-breweries-section-scroll {
+  height: 500px;
+  overflow-y: scroll;
+  padding-right: 16px;
 }
 
 div.friends-following-section {

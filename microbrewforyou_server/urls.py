@@ -26,7 +26,7 @@ from microbrewforyou_app.views import login_view, logout_view,\
     edit_post_view, FollowingView, UnfollowingView, edit_user_view,\
     BreweriesReloadView, NearbyBreweriesView, BreweryDetailView,\
     FavoriteBreweryView, UnfavoriteBreweryView, success, pic_form_view,\
-    FollowingBrewTypesView, UnFollowingBrewTypesView, UserPostListView
+    FollowingBrewTypesView, UnFollowingBrewTypesView, UserPostListView, brewtypes_view
 
 
 urlpatterns = [
@@ -40,8 +40,6 @@ urlpatterns = [
     path('addpost/', AddPostView.as_view(), name="addpostview"),
     path('user_posts/',
          UserPostListView.as_view(), name='userposts'),
-    # path('user_posts/<str:username>',
-    #     UserPostListView.as_view(), name='userposts'),
     path('user/<int:user_id>/', UserDetailView.as_view(), name="userview"),
     path('edituser/<int:user_id>/',
          edit_user_view, name="edit_userview"),
@@ -52,11 +50,9 @@ urlpatterns = [
          FollowingBrewTypesView.as_view(), name='FollowingBrewTypesView'),
     path('unfollowingbrewtypes/<int:unfollow_brew_type_id>/',
          UnFollowingBrewTypesView.as_view(), name='UnFollowingBrewTypesView'),
-    # path('brewtypes/', brewtypes_view, name="brewtypesview"),
+    path('brewtypes/', brewtypes_view, name="brewtypesview"),
     path('image_upload', pic_form_view, name='image_upload'),
     path('success', success, name='success'),
-    # path('fav_brewtypes/<int:favorite_id>/',
-    #      FavoriteBrewTypesView.as_view(), name="favoritebrewtypes"),
     path('fav_breweries/<int:favorite_id>/',
          FavoriteBreweriesView.as_view(), name="favoritebreweries"),
     path('unfollowing/<int:unfollow_id>/',
