@@ -72,15 +72,7 @@
   <div class="friends-following-section profile-box">
     <h3>Friends</h3>
     <hr class="profile"/>
-    {% for friend in friends_list %} 
-<h4><a href="/user/{{ friend.id }}/" target="_blank" class="custom_link"
-    >{{friend.username}}</a></h4>
-  {% endfor %}
-
-  {% for brewery in fav_breweries %} 
-<h4><a href="/brewery/{{ brewery.id }}" target="_blank" class="custom_link"
-    >{{brewery.name}}</a></h4>
-  {% endfor %}
+    {% include "friends_following_section.html" %}
 
   </div>
 </div>

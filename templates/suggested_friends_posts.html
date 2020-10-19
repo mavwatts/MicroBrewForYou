@@ -1,4 +1,6 @@
-{% for post in suggested_posts %}
+{% if suggested_posts %}
+
+    {% for post in suggested_posts%}
         <h3>
         <span class="small"
             ><a  class="custom_link" href="/user/{{ post.author.id }}/">{{ post.author }}</a> -
@@ -8,3 +10,9 @@
         {{ post.body }}
         </h3>
     {% endfor %}
+
+{% else %}
+
+<h3>There are no new suggestions.</h3>
+
+{% endif %}
