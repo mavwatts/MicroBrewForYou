@@ -20,20 +20,8 @@
 <a href="/favorite_brewery/{{brewery_single.id}}/" class="btn button-menu"
   >Add to Favorites</a
 >
-<br />
-<br />
+<br /><br />
 <a href="/unfavorite_brewery/{{brewery_single.id}}/" class="btn button-menu"
   >Remove from Favorites</a
 >
-<hr class="profile" />
-<br />
-{% endfor %} {% comment %} {% if brewery_single not in
-request.user.fav_breweries %}
-<a href="/favorite_brewery/{{brewery_single.id}}/" class="btn button-menu"
-  >Add to Favorites</a
->
-{% else %}
-<a href="/unfavorite_brewery/{{brewery_single.id}}/" class="btn button-menu"
-  >Remove from Favorites</a
->
-{% endif %} {% endfor %} {% endcomment %}
+{% endfor %}

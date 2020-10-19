@@ -100,7 +100,7 @@ class IndexView(View):
                 city=request.user.city, state=request.user.state)
             # end nearby breweries
             # favorite breweries start
-            fav_breweries = brewery_list_by_city
+            fav_breweries = request.user.fav_breweries.all()
             fav_breweries_count = len(fav_breweries)
             # favorite breweries end
             # friends start
@@ -402,11 +402,18 @@ class FavoriteBreweriesView(View):
 
 class NearbyBreweriesView(View):
     def get(self, request):
-        brewery_list_by_city = Breweries.objects.filter(city=request.user.city)
-
+        brewery_list_by_city = Breweries.objects.filter(
+            city=request.user.city).all()
+        breakpoint()
         return render(
             request, "nearby_breweries.html",
             {"brewery": brewery_list_by_city})
+
+# request.user.fav_breweries.all()
+# (Pdb) <QuerySet [<Breweries: BierWerks>, <Breweries: Ute Pass Brewing Co>]>
+
+# brewery_list_by_city.all()
+# (Pdb) <QuerySet [<Breweries: BierWerks>, <Breweries: Ute Pass Brewing Co>]>
 
 
 # class FavoriteBrewTypesView(View):
