@@ -6,8 +6,6 @@
 </h4>
 {% endfor %} {% for brewery in fav_breweries %}
 <h4>
-  <a href="/brewery/{{ brewery.id }}" target="_blank" class="custom_link"
-    >{{brewery.name}}</a
-  >
+  <a href="/brewery/{{ brewery.id }}" class="custom_link">{{brewery.name}}</a>
 </h4>
 {% endfor %}

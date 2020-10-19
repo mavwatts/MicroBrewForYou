@@ -152,7 +152,7 @@ def signup_view(request):
                             "bio"), user_image=data.get(
                                 "user_image"), address=data.get(
                                     "address"), city=data.get(
-                                        "city"), state=data.get("state"))
+                                        "city").title(), state=data.get("state").title())
             login(request, new_user)
             return HttpResponseRedirect(reverse("homepage"))
 
@@ -187,8 +187,8 @@ def edit_user_view(request, user_id):
                 edit_user.bio = data.get('bio')
                 edit_user.user_image = data.get('user_image')
                 edit_user.address = data.get('address')
-                edit_user.city = data.get('city')
-                edit_user.state = data.get('state')
+                edit_user.city = data.get('city').title()
+                edit_user.state = data.get('state').title()
                 # breakpoint()
                 edit_user.save()
                 login(request, edit_user)
