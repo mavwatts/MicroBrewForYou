@@ -1,14 +1,11 @@
-{% extends 'base.html' %}
-
-{% block content %}
-  <br />
-  <h2>Please edit your post below.</h2>
-  <br />
-  <form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input class="btn button-menu" type="submit" value="Submit!" method="post"/>
-  </form>
-  <br />
-  <br />
+{% extends 'base.html' %} {% block content %}
+<br />
+<h2>Please edit your post below.</h2>
+<br />
+<form action="" method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <input class="btn button-menu" type="submit" value="Submit!" />
+</form>
+<br />
+<br />
 {% endblock %}
