@@ -1,15 +1,14 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
-
-{% block content %}
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
+<div class="just-form">
   <br />
   <h2>Please edit your post below.</h2>
   <br />
   <form action="" method="post">
-    {% csrf_token %}
-    {{ form|crispy }}
+    {% csrf_token %} {{ form|crispy }}
     <input class="btn button-menu" type="submit" value="Submit!" />
   </form>
   <br />
   <br />
+</div>
+
 {% endblock %}
