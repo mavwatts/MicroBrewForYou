@@ -87,20 +87,23 @@ class IndexView(View):
             # suggested posts based on city and brew_types_liked merged
             suggested_posts = []
             suggested_users_list = CustomUser.objects.filter(
-                city=request.user.city, state=request.user.state)  # list of users
+                city=request.user.city, state=request.user.state)
             for user in suggested_users_list:
-                if user.id not in suggested_posts:
-                    suggested_users_posts = Posts.objects.filter(
-                        author=user.id)
-                    for post in suggested_users_posts:
-                        suggested_posts.append(post)
+                if user.id != request.user.id:
+                    if user not in request.user.users_following.all():
+                        suggested_posts.append(Posts.objects.filter(
+                            author=user.id))
+            if suggested_posts:
+                suggested_posts = suggested_posts[0].all()
+            else:
+                suggested_posts = suggested_posts
             # end suggested
             # nearby breweries
             brewery_list_by_city = Breweries.objects.filter(
                 city=request.user.city, state=request.user.state)
             # end nearby breweries
             # favorite breweries start
-            fav_breweries = brewery_list_by_city
+            fav_breweries = request.user.fav_breweries.all()
             fav_breweries_count = len(fav_breweries)
             # favorite breweries end
             # friends start
@@ -402,11 +405,18 @@ class FavoriteBreweriesView(View):
 
 class NearbyBreweriesView(View):
     def get(self, request):
-        brewery_list_by_city = Breweries.objects.filter(city=request.user.city)
-
+        brewery_list_by_city = Breweries.objects.filter(
+            city=request.user.city).all()
+        breakpoint()
         return render(
             request, "nearby_breweries.html",
             {"brewery": brewery_list_by_city})
+
+# request.user.fav_breweries.all()
+# (Pdb) <QuerySet [<Breweries: BierWerks>, <Breweries: Ute Pass Brewing Co>]>
+
+# brewery_list_by_city.all()
+# (Pdb) <QuerySet [<Breweries: BierWerks>, <Breweries: Ute Pass Brewing Co>]>
 
 
 # class FavoriteBrewTypesView(View):
