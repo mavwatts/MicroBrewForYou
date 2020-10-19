@@ -163,6 +163,12 @@ div.friends-posts-section {
   flex-basis: 35%;
 }
 
+div.friends-posts-section-scroll {
+  height: 870px;
+  overflow-y: scroll;
+  padding-right: 16px;
+}
+
 div.user-posts-section {
   flex-basis: 75%;
 }
