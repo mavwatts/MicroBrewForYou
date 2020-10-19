@@ -1,112 +1,110 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
+<br />
 
-{% block content %}
+{% if request.user.is_authenticated %}
+<div class="profile-main-container-top">
+  <div class="profile-section profile-box">
+    <h2 style="text-align: center">Profile for {{ request.user.username }}</h2>
+    <br />
+    {% if request.user.user_image %}
+    <div align="center">
+      <img
+        src="/media/{{ request.user.user_image }}"
+        class="user_profile_image"
+        alt="Profile Image"
+        style="width: 300px; border: 2px solid white"
+      />
+    </div>
+    {% endif %}
+
+    <h3>
+      User Id: {{request.user.id}}
+      <a
+        href="{% url 'edit_userview' user_id=request.user.id %}"
+        class="btn button-menu edit-user"
+      >
+        Edit User
+      </a>
+    </h3>
+    <h3>Name: {{request.user.first_name}}</h3>
+    <h3>City: {{request.user.city}}</h3>
+    <h3>State: {{request.user.state}}</h3>
+    <h3>Bio: {{request.user.bio}}</h3>
+    <h3>Following Users: {{follow_count}}</h3>
+    <h3>Following Breweries: {{fav_breweries_count}}</h3>
+    <h3>Number of Posts: {{number_posts}}</h3>
+    <h3>
+      Member Since:
+      <br />
+      <span style="font-size: 20px"> {{request.user.user_since}} </span>
+    </h3>
+  </div>
+
+  <div class="friends-posts-section profile-box">
+    <h3>All Posts</h3>
+    <hr class="profile" />
+    {% include 'all_posts.html' %}
+  </div>
+
+  <div class="suggested-friends-posts-section profile-box">
+    <h3>Suggested Friends Posts</h3>
+    <hr class="profile" />
+    {% include "suggested_friends_posts.html" %}
+  </div>
+</div>
+
+<div class="profile-main-container-middle">
+  <div class="fav-brew-types-section profile-box">
+    <h3>Favorite Brew Types</h3>
+    <hr class="profile" />
+    <div class="fav-brew-types-section-scroll">
+      {% include "favorite_brew_type.html" %}
+    </div>
+
+    <br />
+    <br />
+    <a href="{% url 'brewtypesview' %}" class="btn button-menu"
+      >Update Favorites</a
+    >
+  </div>
+
+  <div class="fav-breweries-section profile-box">
+    <h3>Favorite Breweries</h3>
+    <hr class="profile" />
+    <div class="fav-breweries-section-scroll">
+      {% include "favorite_breweries.html" %}
+    </div>
+  </div>
+
+  <div class="nearby-breweries-section profile-box">
+    <h3>Nearby Breweries</h3>
+    <hr class="profile" />
+    <div class="nearby-breweries-section-scroll">
+      {% include "nearby_breweries.html" %}
+    </div>
+  </div>
+
+  <div class="friends-following-section profile-box">
+    <h3>Friends</h3>
+    <hr class="profile" />
+    {% include "friends_following_section.html" %}
+  </div>
+</div>
+
+<br />
+{% elif request.user.is_anonymous %}
+<div id="home-nobody-loggedin">
+  <h1>Welcome to MicroBrewForYou!</h1>
+  <h2>Beer is that which binds us and brings friends together!</h2>
+  <h2>
+    Please
+    <a class="custom_link" href="{% url 'loginview' %}"> login </a>
+    or
+    <a class="custom_link" href="{% url 'signupview' %}"> signup. </a>
+  </h2>
   <br />
-
-  {% if request.user.is_authenticated %}
-    <div class="profile-main-container-top">
-      <div class="profile-section profile-box">
-
-          <h2 style="text-align: center;">Profile for {{ request.user.username }}</h2>
-          <br />
-          {% if request.user.user_image %}
-            <div align="center">
-              <img
-                src="/media/{{ request.user.user_image }}"
-                class="user_profile_image"
-                alt="Profile Image"
-                style="width: 300px; border: 2px solid white"
-              />
-            </div>
-          {% endif %}
-
-          <h3>User Id: {{request.user.id}} 
-            <a href="{% url 'edit_userview' user_id=request.user.id %}" class="btn button-menu edit-user">
-              Edit User
-            </a>
-          </h3>
-          <h3>Name: {{request.user.first_name}}</h3>
-          <h3>City: {{request.user.city}}</h3>
-          <h3>State: {{request.user.state}}</h3>
-          <h3>Bio: {{request.user.bio}}</h3>
-          <h3>Following Users: {{follow_count}}</h3>
-          <h3>Following Breweries: {{fav_breweries_count}}</h3>
-          <h3>Number of Posts: {{number_posts}}</h3>
-          <h3>Member Since:
-            <br/>
-            <span style="font-size:10px">
-              {{request.user.user_since}}
-            </span>
-            </h3>
-        </div>
-
-        <div class="friends-posts-section profile-box">
-          <h3>All Posts</h3>
-          <hr class="profile"/>
-          {% include 'all_posts.html' %}
-        </div>
-
-        <div class="suggested-friends-posts-section profile-box">
-          <h3>Suggested Friends Posts</h3>
-          <hr class="profile"/>
-          {% include "suggested_friends_posts.html" %}
-        </div>
-    </div>
-
-    <div class="profile-main-container-middle">
-      <div class="fav-brew-types-section profile-box">
-        <h3>Favorite Brew Types</h3>
-        <hr class="profile"/>
-        <div class="fav-brew-types-section-scroll" >
-        {% include "favorite_brew_type.html" %}
-        </div>
-
-        <br/>
-        <br/>
-        <a href="{% url 'brewtypesview' %}" class="btn button-menu">Update Favorites</a>
-      </div>
-
-      <div class="fav-breweries-section profile-box">
-        <h3>Favorite Breweries</h3>
-        <hr class="profile"/>
-        <div class="fav-breweries-section-scroll" >
-        {% include "favorite_breweries.html" %}
-        </div>
-      </div>
-
-      <div class="nearby-breweries-section profile-box" >
-        <h3>Nearby Breweries</h3>
-        <hr class="profile"/>
-        <div class="nearby-breweries-section-scroll" >
-        {% include "nearby_breweries.html" %}
-        </div>
-      </div>
-
-      <div class="friends-following-section profile-box">
-        <h3>Friends</h3>
-        <hr class="profile"/>
-        {% include "friends_following_section.html" %}
-      </div>
-    </div>
-
-    <br />
-  {% elif request.user.is_anonymous %}
-    <div id="home-nobody-loggedin">
-      <h1>Welcome to MicroBrewForYou!</h1>
-      <h2>Beer is that which binds us and brings friends together!</h2>
-        <h2>Please 
-        <a class="custom_link" href="{% url 'loginview' %}">
-          login
-        </a>
-        or
-        <a class="custom_link" href="{% url 'signupview' %}">
-          signup.
-        </a>
-      </h2>
-      <br />
-      <br />
-    </div>
-    <br />
-    <br />
-  {% endif %}
-{% endblock %}
+  <br />
+</div>
+<br />
+<br />
+{% endif %} {% endblock %}
