@@ -412,21 +412,6 @@ class NearbyBreweriesView(View):
             request, "nearby_breweries.html",
             {"brewery": brewery_list_by_city})
 
-# request.user.fav_breweries.all()
-# (Pdb) <QuerySet [<Breweries: BierWerks>, <Breweries: Ute Pass Brewing Co>]>
-
-# brewery_list_by_city.all()
-# (Pdb) <QuerySet [<Breweries: BierWerks>, <Breweries: Ute Pass Brewing Co>]>
-
-
-# class FavoriteBrewTypesView(View):
-#     def get(self, request, favorite_id):
-#         brewtypename = BrewTypes.objects.get(id=favorite_id)
-#         logged_in_user = request.user
-#         logged_in_user.fav_brewtypes.add(brewtypename)
-#         logged_in_user.save()
-#         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
 
 class FollowingBrewTypesView(View):
     def get(self, request, follow_brew_type_id):
@@ -446,6 +431,10 @@ class UnFollowingBrewTypesView(View):
         request.user.save()
         return HttpResponseRedirect(reverse(
             "homepage"))
+
+
+def brewtypes_view(request):
+    return render(request, "brew_type_list.html")
 
 
 def pic_form_view(request, brew_type_id):
