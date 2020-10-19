@@ -434,7 +434,11 @@ class UnFollowingBrewTypesView(View):
 
 
 def brewtypes_view(request):
-    return render(request, "brew_type_list.html")
+    words_quote = "A man who lies about beer makes enemies."
+    words_author = "Stephen King"
+    return render(request, "brew_type_list.html",
+                  {"words_author": words_author,
+                   "words_quote": words_quote})
 
 
 def pic_form_view(request, brew_type_id):
