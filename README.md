@@ -2,5 +2,4 @@
 
 ## Mavrick Watts, Mike Boring, Iris Hoffmeyer, Ally Engle
 
-## Project Description: 
-
+## Project Description: Micro Brew For You
