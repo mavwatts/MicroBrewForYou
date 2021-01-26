@@ -2,4 +2,8 @@
 
 ## Mavrick Watts, Mike Boring, Iris Hoffmeyer, Ally Engle
 
-## Project Description: Micro Brew For You
+![](images/site_preview.png)
+
+## Technologies Utilized 
+* Python 
+* Django 
